@@ -1,7 +1,8 @@
 package com.company;
 
-public class Food {
+abstract class Food {
 
     public int kiloprice;
+    public String type;
 
 }
