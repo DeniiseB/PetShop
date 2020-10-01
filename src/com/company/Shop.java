@@ -9,7 +9,7 @@ public class Shop {
 
 
     public void buyAnimal(Player player){
-        System.out.println("Welcome to The Dodgy Pet Shop. What animal are you looking to buy today?");
+        System.out.println("\nWelcome to The Dodgy Pet Shop. What animal are you looking to buy today?");
         System.out.println("1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40" +
                 " \n5. Badger, £60 \n6. Back");
         int choice = scanner.nextInt();
@@ -24,6 +24,8 @@ public class Shop {
             case 4:
                 break;
             case 5:
+                break;
+            default:
                 break;
 
         }

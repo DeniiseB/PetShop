@@ -41,9 +41,16 @@ public class Game {
 
 
     public void addPlayer() {
-        // Method that adds players to players arraylist
+        // Method that adds players to players arraylist, with exception handler
         System.out.println("Enter name of player (0 to skip to Main Menu):");
-        newPlayer = scanner.next();     // TRY CATCH??
+        try {
+            newPlayer = scanner.next();
+        }
+        catch (Exception e){
+            System.out.println("Only type your name with letters, please!");
+            scanner.next();
+            addPlayer();
+        }
         if (newPlayer.equals("0")) {
             // Making sure at least one player gets added
             if (players.size() == 0) {
