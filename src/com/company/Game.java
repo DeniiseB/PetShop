@@ -16,13 +16,29 @@ public class Game {
     Shop shop = new Shop();
 
     public Game() {
-        System.out.println("Choose rounds (5-30)"); // ADD TRY CATCH
-        this.rounds = scanner.nextInt();
 
+        chooseRounds();
         addPlayer();
         mainMenu();
 
     }
+
+    public void chooseRounds() {
+        // Method to make the player choose a decent number of rounds
+        System.out.println("Choose rounds (5-30)");
+        try {
+            this.rounds = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Only type in a number between 5-30!");
+            scanner.next();
+            chooseRounds();
+        }
+        if (rounds < 5 || rounds > 30) {
+            System.out.println("Only numbers between 5 and 30 allowed.");
+            chooseRounds();
+        }
+    }
+
 
     public void addPlayer() {
         // Method that adds players to players arraylist
@@ -91,7 +107,7 @@ public class Game {
         // Add method with end stats
     }
 
-    public Player setPlayer(Player player){
+    public Player setPlayer(Player player) {
         // Sets the first player to be first player in arraylist players
         if (firstRound) {
             firstRound = false;
@@ -101,7 +117,7 @@ public class Game {
         // Changes the index number in players to set currentPlayer to next player
         int playerIndex = players.indexOf(currentPlayer);
         // If it's the last players turn, change next player to first player again
-        if (playerIndex >= players.size()-1){
+        if (playerIndex >= players.size() - 1) {
             currentPlayer = players.get(0);
             // Round counter goes up when every player has had one go each
             roundCounter++;
@@ -112,17 +128,5 @@ public class Game {
         return currentPlayer;
     }
 
-//    public Player playerTurn(Player currentPlayer){
-//        // Changes the index number in players to set currentPlayer to next player
-//        int playerIndex = players.indexOf(currentPlayer);
-//        // If it's the last players turn, change next player to first player again
-//        if (playerIndex >= players.size()-1){
-//            currentPlayer = players.get(0);
-//            return currentPlayer;
-//        }
-//        playerIndex++;
-//        currentPlayer = players.get(playerIndex);
-//        return currentPlayer;
-//    }
 
 }
