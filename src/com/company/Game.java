@@ -8,11 +8,15 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
 
     public ArrayList<Player> players = new ArrayList<>();
+    public Player currentPlayer;
     public int rounds;
+    int roundCounter = 0;
+    boolean firstRound = true;
     public String newPlayer = "";
+    Shop shop = new Shop();
 
     public Game() {
-        System.out.println("Choose rounds (5-30)");
+        System.out.println("Choose rounds (5-30)"); // ADD TRY CATCH
         this.rounds = scanner.nextInt();
 
         addPlayer();
@@ -59,27 +63,66 @@ public class Game {
         }
     }
 
-    public void gameMenu() {
+    public void gameMenu() { // add player
 
-        System.out.println("1. Buy Animals \n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                "\n5. Sell Animal \n88. EXIT GAME");
-        int choice = scanner.nextInt();
-        switch (choice){
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            default:
-                System.exit(0);
+        while (roundCounter < rounds) {
+            setPlayer(currentPlayer);
+            System.out.println("ROUND " + roundCounter + "\n" + currentPlayer.getName() + ":\n1. Buy Animals " +
+                    "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
+                    "\n5. Sell Animal \n88. EXIT GAME");  // ADD player animals and money
+            int choice = scanner.nextInt();  // ADD TRY CATCH
+            switch (choice) {
+                case 1:
+                    shop.buyAnimal(currentPlayer); // add player
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.exit(0);
+            }
         }
-
+        System.out.println("GAME OVER");
+        // Add method with end stats
     }
 
+    public Player setPlayer(Player player){
+        // Sets the first player to be first player in arraylist players
+        if (firstRound) {
+            firstRound = false;
+            this.currentPlayer = players.get(0);
+            return currentPlayer;
+        }
+        // Changes the index number in players to set currentPlayer to next player
+        int playerIndex = players.indexOf(currentPlayer);
+        // If it's the last players turn, change next player to first player again
+        if (playerIndex >= players.size()-1){
+            currentPlayer = players.get(0);
+            // Round counter goes up when every player has had one go each
+            roundCounter++;
+            return currentPlayer;
+        }
+        playerIndex++;
+        currentPlayer = players.get(playerIndex);
+        return currentPlayer;
+    }
+
+//    public Player playerTurn(Player currentPlayer){
+//        // Changes the index number in players to set currentPlayer to next player
+//        int playerIndex = players.indexOf(currentPlayer);
+//        // If it's the last players turn, change next player to first player again
+//        if (playerIndex >= players.size()-1){
+//            currentPlayer = players.get(0);
+//            return currentPlayer;
+//        }
+//        playerIndex++;
+//        currentPlayer = players.get(playerIndex);
+//        return currentPlayer;
+//    }
 
 }
