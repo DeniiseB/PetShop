@@ -5,9 +5,9 @@ public class Toad extends Animal {
     private int price;
 
 
-    public Toad(String name)
+    public Toad(String name, String gender)
     {
-        super(name);
+        super(name, gender);
 
     }
 

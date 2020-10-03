@@ -4,9 +4,9 @@ public class Ferret extends Animal {
 
     private int price;
 
-    public Ferret(String name)
+    public Ferret(String name, String gender)
     {
-        super(name);
+        super(name, gender);
     }
 
 }

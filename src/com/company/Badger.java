@@ -4,8 +4,8 @@ public class Badger extends Animal {
 
     private int price;
 
-    public Badger (String name)
+    public Badger (String name, String gender)
     {
-        super(name);
+        super(name, gender);
     }
 }

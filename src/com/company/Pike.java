@@ -4,8 +4,8 @@ public class Pike extends Animal {
 
     private int price;
 
-    public Pike(String name)
+    public Pike(String name, String gender)
     {
-        super(name);
+        super(name, gender);
     }
 }

@@ -7,7 +7,7 @@ public class Game {
 
     Scanner scanner = new Scanner(System.in);
 
-    public ArrayList<Player> players = new ArrayList<>();
+    public static ArrayList<Player> players = new ArrayList<>();
     public Player currentPlayer;
     public int maxRounds;
     int roundCounter = 0;
@@ -96,7 +96,8 @@ public class Game {
 
             print("ROUND " + roundCounter + "\n" + currentPlayer.getName() + ":\n1. Buy Animals " +
                     "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                    "\n5. Sell Animal \n88. EXIT GAME");  // ADD player animals and money
+                    "\n5. Sell Animal \n88. EXIT GAME" );  // ADD player animals and money
+
             int choice = scanner.nextInt();  // ADD TRY CATCH
             switch (choice) {
                 case 1:
