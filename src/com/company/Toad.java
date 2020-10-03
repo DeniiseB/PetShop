@@ -2,7 +2,7 @@ package com.company;
 
 public class Toad extends Animal {
 
-    private int price;
+    private int price = 5;
 
 
     public Toad(String name, String gender)
@@ -11,9 +11,10 @@ public class Toad extends Animal {
 
     }
 
-//    public String getGender(){
-//        return this.gender;
-//    }
+    public int getPrice(){
+        return price;
+    }
+
 
 
 

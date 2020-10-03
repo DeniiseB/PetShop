@@ -8,7 +8,8 @@ abstract class Animal {
 
     protected String name;
     protected int health = 100;
-    private String gender;
+    protected String gender;
+    protected int price;
 
     public Animal(String name, String gender){
         this.name = name;
@@ -28,4 +29,7 @@ abstract class Animal {
         return gender;
     }
 
+    public int getPrice(){
+        return price;
+    }
 }

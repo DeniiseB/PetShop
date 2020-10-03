@@ -47,8 +47,7 @@ public class Game {
         print("Enter name of player (0 to skip to Main Menu):");
         try {
             newPlayer = scanner.next();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             print("Only type your name with letters, please!");
             scanner.next();
             addPlayer();
@@ -79,7 +78,6 @@ public class Game {
                 print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n");
                 mainMenu();
             case 2:
-                print("\n".repeat(50) + "**NEW GAME STARTED**\n (Choose 1-5. Press ENTER.)\n");
                 gameMenu();
                 break;
             case 3:
@@ -92,11 +90,19 @@ public class Game {
         boolean loop = true;
         do {
             setPlayer(currentPlayer);
-            if(roundCounter > maxRounds){break;}
+            if (roundCounter > maxRounds) {
+                break;
+            }
 
-            print("ROUND " + roundCounter + "\n" + currentPlayer.getName() + ":\n1. Buy Animals " +
-                    "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                    "\n5. Sell Animal \n88. EXIT GAME" );  // ADD player animals and money
+            print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
+                    + "  Money: £" + currentPlayer.getMoney() + "\n");
+            print("Pets:\n-----");
+            for(Animal animal: currentPlayer.animals)
+            {print(animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
+            + ", " + animal.health + "% Health");}
+
+            print("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
+                    "\n5. Sell Animal \n88. EXIT GAME");
 
             int choice = scanner.nextInt();  // ADD TRY CATCH
             switch (choice) {
@@ -121,7 +127,7 @@ public class Game {
 
     public void setPlayer(Player player) {
         // Code for first round only, to keep first player
-        if(firstRound){
+        if (firstRound) {
             this.firstRound = false;
             roundCounter++;
             return;
@@ -141,9 +147,11 @@ public class Game {
         currentPlayer = players.get(playerIndex);
     }
 
-    private void print(String x){
+    private void print(String x) {
         // print a string if it is not empty
-        if(!x.equals("")){ System.out.println(x); }
+        if (!x.equals("")) {
+            System.out.println(x);
+        }
     }
 
 }

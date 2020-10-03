@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
     private String name;
-    public int money = 500;
+    private int money = 500;
     public ArrayList<Animal> animals;
 
     public Player(String name){
@@ -17,6 +17,15 @@ public class Player {
     public String getName(){
         return name;
     }
+
+    public int getMoney(){
+        return money;
+    }
+
+    public void setMoney(int newMoney){
+        this.money = newMoney;
+    }
+
 //
 //    public ArrayList getAnimals(){
 //        return animals;
