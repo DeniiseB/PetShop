@@ -15,7 +15,10 @@ public class Shop {
         int choice = scanner.nextInt();
         switch (choice){
             case 1:
-                System.out.println("Current player:" + player.getName());
+                System.out.printf("%s, name your toad: ", player.getName());
+                String toadName = scanner.next();
+                player.getAnimals().add(new Toad(toadName));
+
                 break;
             case 2:
                 break;

@@ -6,7 +6,7 @@ public class Player {
 
     private String name;
     public int money = 500;
-    public ArrayList<Animal> animals = new ArrayList<>();
+    private ArrayList<Animal> animals = new ArrayList<>();
 
     public Player(String name){
         this.name = name;
@@ -16,5 +16,8 @@ public class Player {
         return name;
     }
 
+    public ArrayList getAnimals(){
+        return animals;
+    }
 
 }
