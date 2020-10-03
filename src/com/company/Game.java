@@ -27,16 +27,16 @@ public class Game {
 
     public void chooseRounds() {
         // Method to make the player choose a decent number of rounds
-        System.out.println("Choose rounds (5-30)");
+        print("Choose rounds (5-30)");
         try {
             this.maxRounds = scanner.nextInt();
         } catch (Exception e) {
-            System.out.println("Only type in a number between 5-30!");
+            print("Only type in a number between 5-30!");
             scanner.next();
             chooseRounds();
         }
         if (maxRounds < 5 || maxRounds > 30) {
-            System.out.println("Only numbers between 5 and 30 allowed.");
+            print("Only numbers between 5 and 30 allowed.");
             chooseRounds();
         }
     }
@@ -44,19 +44,19 @@ public class Game {
 
     public void addPlayer() {
         // Method that adds players to players arraylist, with exception handler
-        System.out.println("Enter name of player (0 to skip to Main Menu):");
+        print("Enter name of player (0 to skip to Main Menu):");
         try {
             newPlayer = scanner.next();
         }
         catch (Exception e){
-            System.out.println("Only type your name with letters, please!");
+            print("Only type your name with letters, please!");
             scanner.next();
             addPlayer();
         }
         if (newPlayer.equals("0")) {
             // Making sure at least one player gets added
             if (players.size() == 0) {
-                System.out.println("You must add at least one player!");
+                print("You must add at least one player!");
                 addPlayer();
             }
             return;
@@ -76,10 +76,10 @@ public class Game {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                System.out.println("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n");
+                print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n");
                 mainMenu();
             case 2:
-                System.out.println("\n".repeat(50) + "**NEW GAME STARTED**\n (Choose 1-5. Press ENTER.)\n");
+                print("\n".repeat(50) + "**NEW GAME STARTED**\n (Choose 1-5. Press ENTER.)\n");
                 gameMenu();
                 break;
             case 3:
@@ -94,7 +94,7 @@ public class Game {
             setPlayer(currentPlayer);
             if(roundCounter > maxRounds){break;}
 
-            System.out.println("ROUND " + roundCounter + "\n" + currentPlayer.getName() + ":\n1. Buy Animals " +
+            print("ROUND " + roundCounter + "\n" + currentPlayer.getName() + ":\n1. Buy Animals " +
                     "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
                     "\n5. Sell Animal \n88. EXIT GAME");  // ADD player animals and money
             int choice = scanner.nextInt();  // ADD TRY CATCH
@@ -114,7 +114,7 @@ public class Game {
                     System.exit(0);
             }
         } while (loop);
-        System.out.println("GAME OVER");
+        print("GAME OVER");
         // Add method with end stats
     }
 
@@ -140,5 +140,9 @@ public class Game {
         currentPlayer = players.get(playerIndex);
     }
 
+    private void print(String x){
+        // print a string if it is not empty
+        if(!x.equals("")){ System.out.println(x); }
+    }
 
 }
