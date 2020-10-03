@@ -3,25 +3,38 @@ package com.company;
 import java.util.Scanner;
 
 public class Shop {
-    Scanner scanner = new Scanner(System.in);
+    int choice = 0;
 
     public void buyAnimal(Player player) {
-
+        boolean loop = true;
+        do{
+        Scanner scanner = new Scanner(System.in);
         print("\nWelcome to The Dodgy Pet Shop. What animal are you looking to buy today?");
         print("1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40" +
                 " \n5. Badger, £60 \n6. Back");
-        int choice = scanner.nextInt();
-        scanner.nextLine();
+        try{
+        choice = scanner.nextInt();
+        loop = false;
+        }
+        catch (Exception e){
+            System.out.println("Only type numbers 1 - 6!");
+        }
+        if (choice < 1 || choice > 6) {
+            print("Only type numbers 1 - 6!");
+            loop = true;
+        }
+        }while(loop);
         addAnimal(player, choice);
         return;
     }
 
     public void addAnimal(Player player, int i) {
+        Scanner newScanner = new Scanner(System.in);
         boolean loop = true;
         String gender = "";
         print("Female of male? (f/m)");
         while (loop) {
-            gender = scanner.nextLine().toLowerCase();
+            gender = newScanner.nextLine().toLowerCase();
             loop = false;
             if (!gender.equals("f") && !gender.equals("m")) {
                 print("Only enter f or m!");
@@ -29,7 +42,7 @@ public class Shop {
             }
         }
         print(player.getName() + ", name your new pet: ");
-        String petName = scanner.nextLine();
+        String petName = newScanner.nextLine();
 
         Animal animal = switch (i) {
             case 1 -> new Toad(petName, gender);
