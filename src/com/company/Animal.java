@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 abstract class Animal {
@@ -32,4 +33,7 @@ abstract class Animal {
     public int getPrice(){
         return price;
     }
+
+
+
 }

@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Shop {
-    public boolean boughtPet;
+    public boolean boughtAnything;
 
     public void buyAnimal(Player player) {
         int choice = 0;
@@ -26,7 +26,7 @@ public class Shop {
             }
         } while (loop);
         if (choice == 6) {
-            System.out.println(boughtPet);
+            System.out.println(boughtAnything);
             return;
         }
         addAnimal(player, choice);
@@ -79,7 +79,7 @@ public class Shop {
         // If takingPayment returns true, boughtPet changes to true
         if (takingPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
-            this.boughtPet = true;
+            this.boughtAnything = true;
             return;
         }
     }

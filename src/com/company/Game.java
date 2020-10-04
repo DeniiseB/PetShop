@@ -70,8 +70,8 @@ public class Game {
 
     public void mainMenu() {
 
-        System.out.println("\nMAIN MENU\n---------\n(Pick 1-3, press ENTER)"); // TRY CATCH??
-        System.out.println("1. Game rules\n2. Start Game\n3. Exit game");
+        System.out.println("\n".repeat(50) + "MAIN MENU\n---------\n(Pick 1-3, press ENTER)"); // TRY CATCH??
+        System.out.println("1. Game rules\n2. START GAME\n3. Exit game");
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
@@ -86,46 +86,44 @@ public class Game {
         }
     }
 
-    public void gameMenu() { // add player
+    public void gameMenu() {
         boolean loop = true;
         do {
-            setPlayer(currentPlayer);
+            setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
                 break;
             }
-
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n");
             print("Pets:\n-----");
-            for(Animal animal: currentPlayer.animals)
-            {print(animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
-            + ", " + animal.health + "% Health");}
-            do{
-            print("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                    "\n5. Sell Animal \n88. EXIT GAME");
+            print(currentPlayer.animalsInfo());
+            do {
+                print("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
+                        "\n5. Sell Animal \n88. EXIT GAME");
 
-            int choice = scanner.nextInt();  // ADD TRY CATCH
-            switch (choice) {
-                case 1:
-                    shop.buyAnimal(currentPlayer);
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
-                case 88:
-                    System.exit(0);
-            }}while(!shop.boughtPet); //ADD boughtfood
+                int choice = scanner.nextInt();  // ADD TRY CATCH
+                switch (choice) {
+                    case 1:
+                        shop.buyAnimal(currentPlayer);
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                    case 88:
+                        System.exit(0);
+                }
+            } while (!shop.boughtAnything); //ADD boughtfood
         } while (loop);
         print("GAME OVER");
         // Add method with end stats
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayerAndRounds(Player player) {
         // Code for first round only, to keep first player
         if (firstRound) {
             this.firstRound = false;
@@ -147,11 +145,13 @@ public class Game {
         currentPlayer = players.get(playerIndex);
     }
 
+
     private void print(String x) {
         // print a string if it is not empty
         if (!x.equals("")) {
             System.out.println(x);
         }
     }
+
 
 }
