@@ -100,7 +100,7 @@ public class Game {
             for(Animal animal: currentPlayer.animals)
             {print(animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
             + ", " + animal.health + "% Health");}
-
+            do{
             print("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
                     "\n5. Sell Animal \n88. EXIT GAME");
 
@@ -119,7 +119,7 @@ public class Game {
                     break;
                 case 88:
                     System.exit(0);
-            }
+            }}while(!shop.boughtPet); //ADD boughtfood
         } while (loop);
         print("GAME OVER");
         // Add method with end stats
