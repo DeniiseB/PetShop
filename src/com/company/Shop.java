@@ -6,7 +6,7 @@ public class Shop {
     public boolean boughtAnything;
 
     public void buyAnimal(Player player) {
-        int choice = 0;
+        int choice = 0;     // MOVE to fields?
         boolean loop = true;
         do {
             Scanner scanner = new Scanner(System.in);
@@ -77,14 +77,14 @@ public class Shop {
             default -> throw new IllegalStateException("Unexpected value");
         };
         // If takingPayment returns true, boughtPet changes to true
-        if (takingPayment(player, newAnimal)) {
+        if (takingAnimalPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
             this.boughtAnything = true;
             return;
         }
     }
 
-    public boolean takingPayment(Player player, Animal animal) {
+    public boolean takingAnimalPayment(Player player, Animal animal) {
         // If player has enough money to buy animal, takingPayment returns true
         if (player.getMoney() < animal.getPrice()) {
             print("You don't have enough money to buy that pet. You have £" + player.getMoney() + " left.");
@@ -100,8 +100,51 @@ public class Shop {
 
     }
 
-    public void buyFood() {
 
+    public void buyFood(Player player) {
+        int choice = 0;     // MOVE to fields?
+        boolean loop = true;
+        do {
+            Scanner scanner = new Scanner(System.in);
+            print("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)");
+            print("1. Living Flies, £7.25/Kg \n2. Sweet Corn, £9.75/Kg \n3. Cat Chow, £12.50/Kg \n4. BACK" +
+                    " (This option will change to next player if you have already bought food");
+            try {
+                choice = scanner.nextInt();
+                loop = false;
+            } catch (Exception e) {
+                System.out.println("Only type numbers 1 - 4!");
+            }
+            if (choice < 1 || choice > 4) {
+                print("Only type numbers 1 - 4!");
+                loop = true;
+            }
+        } while (loop);
+        if (choice == 4) {
+            System.out.println(boughtAnything);
+            return;
+        }
+//        addAnimal(player, choice);
+        // After buying food, player gets option to buy more
+        do {
+            print("Buy more food? (Select 1-2. Press ENTER.)\n1. Yes\n2. No");
+            Scanner scanner = new Scanner(System.in);
+            try {
+                choice = scanner.nextInt();
+                loop = false;
+            } catch (Exception e) {
+                print("Only type numbers 1-2!");
+                loop = true;
+            }
+            if (choice < 1 || choice > 2) {
+                print("Only type numbers 1 - 6!");
+                loop = true;
+            }
+        } while (loop);
+
+        if (choice == 1){
+            buyFood(player);
+        }
     }
 
     private void print(String x) {

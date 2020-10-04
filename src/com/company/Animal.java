@@ -34,6 +34,9 @@ abstract class Animal {
         return price;
     }
 
+    public void eat(Food food){
+        System.out.println(this.getClass().getSimpleName() + ": omnomnom...");
+    }
 
 
 }

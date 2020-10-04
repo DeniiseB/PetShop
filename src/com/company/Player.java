@@ -9,11 +9,13 @@ public class Player {
     private String name;
     private int money = 100;
     public ArrayList<Animal> animals;
+    public ArrayList<Food> food;
 
     public Player(String name){
 
         this.name = name;
         this.animals = new ArrayList<>();
+        this.food = new ArrayList<>();
     }
 
     public String getName(){
