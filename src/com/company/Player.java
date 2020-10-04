@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
     private String name;
-    private int money = 500;
+    private int money = 100;
     public ArrayList<Animal> animals;
 
     public Player(String name){

@@ -13,7 +13,7 @@ public class Shop {
             print("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-6. Press ENTER)");
             print("1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40" +
                     " \n5. Badger, £60 \n6. BACK (This option will change to next player if you have already" +
-                    "bought a pet)");
+                    " bought a pet)");
             try {
                 choice = scanner.nextInt();
                 loop = false;
@@ -82,7 +82,6 @@ public class Shop {
             this.boughtPet = true;
             return;
         }
-        this.boughtPet = false;
     }
 
     public boolean takingPayment(Player player, Animal animal) {
