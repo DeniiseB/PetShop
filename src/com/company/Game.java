@@ -16,29 +16,13 @@ public class Game {
     Shop shop = new Shop();
 
     public Game() {
-
-        chooseRounds();
+        // Make the player choose a decent number of rounds
+        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5,30);
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
         mainMenu();
 
-    }
-
-    public void chooseRounds() {
-        // Method to make the player choose a decent number of rounds
-        print("Choose rounds (5-30)");  // MOVE print() to Dialogs
-        try {
-            this.maxRounds = scanner.nextInt();
-        } catch (Exception e) {
-            print("Only type in a number between 5-30!");
-            scanner.next();
-            chooseRounds();
-        }
-        if (maxRounds < 5 || maxRounds > 30) {
-            print("Only numbers between 5 and 30 allowed.");
-            chooseRounds();
-        }
     }
 
 
