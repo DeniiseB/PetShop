@@ -68,7 +68,6 @@ public class Game {
     public void gameMenu() {
         boolean loop = true;
         do {
-//            boolean boughtAnything = false;
             shop.boughtAnything = false;
             setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
@@ -80,10 +79,9 @@ public class Game {
             print("Pets:\n-----");
             print(currentPlayer.animalsInfo());
             do {
-                print("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                        "\n5. Sell Animal \n88. EXIT GAME");
+                int choice = Dialogs.promptInt("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
+                        "\n5. Sell Animal \n6. EXIT GAME", 1,6);
 
-                int choice = scanner.nextInt();  // ADD TRY CATCH
                 switch (choice) {
                     case 1:
                         shop.buyAnimal(currentPlayer, shop.boughtAnything);
@@ -97,7 +95,7 @@ public class Game {
                         break;
                     case 5:
                         break;
-                    case 88:
+                    case 6:
                         System.exit(0);
                 }
             } while (!shop.boughtAnything);
