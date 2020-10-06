@@ -50,9 +50,9 @@ public class Game {
 
     public void mainMenu() {
 
-        System.out.println("\n".repeat(50) + "MAIN MENU\n---------\n(Pick 1-3, press ENTER)"); // TRY CATCH??
-        System.out.println("1. Game rules\n2. START GAME\n3. Exit game");
-        int choice = scanner.nextInt();
+        Dialogs.clear();
+        int choice = Dialogs.promptInt("MAIN MENU\n---------\n(Pick 1-3, press ENTER)\n" +
+                "1. Game rules\n2. START GAME\n3. Exit game", 1, 3);
         switch (choice) {
             case 1:
                 print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n");
@@ -62,7 +62,6 @@ public class Game {
                 break;
             case 3:
                 System.exit(0);
-
         }
     }
 
