@@ -3,13 +3,11 @@ package com.company;
 import java.util.Scanner;
 
 public class Shop {
-    public boolean boughtAnything;
+    public int boughtAnything = 0;
 
 
-    public void buyAnimal(Player player, Boolean boughtAnything) {
-        this.boughtAnything = boughtAnything;
+    public void buyAnimal(Player player) {
         int choice = 0;     // MOVE to fields?
-        boolean loop = true;
 
         choice = Dialogs.promptInt("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-6. Press ENTER)"
                 + "\n1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40 \n5. Badger, £60" +
@@ -18,18 +16,18 @@ public class Shop {
         if (choice == 6) {
             return;
         }
-        // If the player managed to buy something, addFood() is true
-        this.boughtAnything = addAnimal(player, choice);
+
+        addAnimal(player, choice);
 
         // After buying a pet, player gets option to buy more
         choice = Dialogs.promptInt("Buy another pet? (Select 1-2. Press ENTER.)\n1. Yes\n2. No", 1, 2);
 
         if (choice == 1) {
-            buyAnimal(player, this.boughtAnything);
+            buyAnimal(player);
         }
     }
 
-    public boolean addAnimal(Player player, int i) {
+    public void addAnimal(Player player, int i) {
         Scanner newScanner = new Scanner(System.in);
         boolean loop = true;
         String gender = "";
@@ -54,9 +52,8 @@ public class Shop {
         // If takingPayment returns true, boughtAnything changes to true
         if (takingAnimalPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
-            return true;
+            this.boughtAnything++;
         }
-        return false;
     }
 
     public boolean takingAnimalPayment(Player player, Animal animal) {
@@ -76,10 +73,9 @@ public class Shop {
     }
 
 
-    public void buyFood(Player player, Boolean boughtAnything) {
-        this.boughtAnything = boughtAnything;
+    public void buyFood(Player player) {
         int choice = 0;     // MOVE to fields?
-        boolean loop = true;
+
             choice = Dialogs.promptInt("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)\n" +
                     "1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +
                     " (This option will change to next player if you have already bought food)", 1,4);
@@ -88,20 +84,17 @@ public class Shop {
             return;
         }
 
-        // If the player managed to buy something, addFood() is true
-        this.boughtAnything = addFood(player, choice);
+        addFood(player, choice);
         // After buying food, player gets option to buy more
         choice = Dialogs.promptInt("Buy more food? (Select 1-2. Press ENTER.)\n1. Yes\n2. No", 1, 2);
 
         if (choice == 1) {
-            buyFood(player, this.boughtAnything);
+            buyFood(player);
         }
     }
 
 
-    public boolean addFood(Player player, int choice) {
-        Scanner newScanner = new Scanner(System.in);
-        boolean loop = true;
+    public void addFood(Player player, int choice) {
 
         int kilos = Dialogs.promptInt("How many kilos?", 0, 10000);
 
@@ -110,12 +103,11 @@ public class Shop {
             case 2 -> player.sweetCorn;
             default -> player.catChow;
         };
-// If takingPayment returns true, addFood() changes to true
+
         if (takingFoodPayment(player, tempFood, kilos)) {
             tempFood.addKilos(kilos);
-            return true;
+            boughtAnything++;
         }
-        return false;
     }
 
 

@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
 
-    private String name;
+    private final String name;
     private int money = 100;
     public ArrayList<Animal> animals;
     public LivingFlies livingFlies = new LivingFlies();
@@ -41,12 +41,12 @@ public class Player {
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
             if(animal.health <= 0){
-                sentence = sentence + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
+                sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);
                 continue;
             }
-            sentence = sentence + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+            sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
                     + animal.getGender() + ", " + animal.health + "% Health";
         }
         // to avoid ConcurrentModificationException
@@ -59,5 +59,6 @@ public class Player {
                 "Sweet Corn: " + this.sweetCorn.getKilos() + "Kg  |  " +
                 "Cat Chow: " + this.catChow.getKilos() + "Kg";
     }
+
 
 }
