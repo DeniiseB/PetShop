@@ -41,12 +41,12 @@ public class Player {
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
             if(animal.health <= 0){
-                sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
+                sentence = sentence + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);
                 continue;
             }
-            sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+            sentence = sentence + animal.getClass().getSimpleName() + ", " + animal.name + ", "
                     + animal.getGender() + ", " + animal.health + "% Health";
         }
         // to avoid ConcurrentModificationException

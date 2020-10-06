@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Shop {
     public boolean boughtAnything;
 
-    public void buyAnimal(Player player) {
+    public void buyAnimal(Player player, Boolean boughtAnything) {
+        this.boughtAnything = boughtAnything;
         int choice = 0;     // MOVE to fields?
         boolean loop = true;
         do {
@@ -47,7 +48,7 @@ public class Shop {
         } while (loop);
 
         if (choice == 1) {
-            buyAnimal(player);
+            buyAnimal(player, true);
         }
     }
 
@@ -98,7 +99,8 @@ public class Shop {
     }
 
 
-    public void buyFood(Player player) {
+    public void buyFood(Player player, Boolean boughtAnything) {
+        this.boughtAnything = boughtAnything;
         int choice = 0;     // MOVE to fields?
         boolean loop = true;
         do {
@@ -141,7 +143,7 @@ public class Shop {
         } while (loop);
 
         if (choice == 1) {
-            buyFood(player);
+            buyFood(player, boughtAnything);
         }
     }
 
