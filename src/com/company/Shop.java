@@ -29,7 +29,7 @@ public class Shop {
         if (choice == 6) {
             return;
         }
-        addAnimal(player, choice);
+        this.boughtAnything = addAnimal(player, choice);
         // After buying a pet, player gets option to buy more
         do {
             print("Buy another pet? (Select 1-2. Press ENTER.)\n1. Yes\n2. No");
@@ -48,11 +48,11 @@ public class Shop {
         } while (loop);
 
         if (choice == 1) {
-            buyAnimal(player, true);
+            buyAnimal(player, this.boughtAnything);
         }
     }
 
-    public void addAnimal(Player player, int i) {
+    public boolean addAnimal(Player player, int i) {
         Scanner newScanner = new Scanner(System.in);
         boolean loop = true;
         String gender = "";
@@ -78,8 +78,9 @@ public class Shop {
         // If takingPayment returns true, boughtAnything changes to true
         if (takingAnimalPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
-            this.boughtAnything = true;
+            return true;
         }
+        return false;
     }
 
     public boolean takingAnimalPayment(Player player, Animal animal) {
@@ -123,8 +124,8 @@ public class Shop {
             return;
         }
 
-        addFood(player, choice);
-
+        // If the player managed to buy something, addFood() is true
+        this.boughtAnything = addFood(player, choice);
         // After buying food, player gets option to buy more
         do {
             print("Buy more food? (Select 1-2. Press ENTER.)\n1. Yes\n2. No");
@@ -143,36 +144,28 @@ public class Shop {
         } while (loop);
 
         if (choice == 1) {
-            buyFood(player, boughtAnything);
+            buyFood(player, this.boughtAnything);
         }
     }
 
 
-    public void addFood(Player player, int choice) {
+    public boolean addFood(Player player, int choice) {
         Scanner newScanner = new Scanner(System.in);
         boolean loop = true;
-        int kilos = 0;
 
-        print("How many kilos?");
-        do {
-            try {
-                kilos = newScanner.nextInt();
-                loop = false;
-            } catch (Exception e) {
-                print("Only type in numbers!");
-            }
-        } while (loop);
+        int kilos = Dialogs.promptInt("How many kilos?", 0,10000);
 
         Food tempFood = switch (choice) {
             case 1 -> player.livingFlies;
             case 2 -> player.sweetCorn;
             default -> player.catChow;
         };
-// If takingPayment returns true, boughtAnything changes to true
+// If takingPayment returns true, addFood() changes to true
         if (takingFoodPayment(player, tempFood, kilos)) {
             tempFood.addKilos(kilos);
-            this.boughtAnything = true;
+            return true;
         }
+        return false;
     }
 
 

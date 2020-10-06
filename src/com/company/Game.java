@@ -68,7 +68,8 @@ public class Game {
     public void gameMenu() {
         boolean loop = true;
         do {
-            boolean boughtAnything = false;
+//            boolean boughtAnything = false;
+            shop.boughtAnything = false;
             setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
                 break;
@@ -85,10 +86,10 @@ public class Game {
                 int choice = scanner.nextInt();  // ADD TRY CATCH
                 switch (choice) {
                     case 1:
-                        shop.buyAnimal(currentPlayer, false);
+                        shop.buyAnimal(currentPlayer, shop.boughtAnything);
                         break;
                     case 2:
-                        shop.buyFood(currentPlayer, false);
+                        shop.buyFood(currentPlayer, shop.boughtAnything);
                         break;
                     case 3:
                         break;
