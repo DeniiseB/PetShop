@@ -27,7 +27,7 @@ public class Game {
 
     public void chooseRounds() {
         // Method to make the player choose a decent number of rounds
-        print("Choose rounds (5-30)");
+        print("Choose rounds (5-30)");  // MOVE print() to Dialogs
         try {
             this.maxRounds = scanner.nextInt();
         } catch (Exception e) {
