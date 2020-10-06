@@ -9,13 +9,15 @@ public class Player {
     private String name;
     private int money = 100;
     public ArrayList<Animal> animals;
-    public ArrayList<Food> food;
+    public LivingFlies livingFlies = new LivingFlies();
+    public SweetCorn sweetCorn =  new SweetCorn();
+    public CatChow catChow = new CatChow();
+
 
     public Player(String name){
 
         this.name = name;
         this.animals = new ArrayList<>();
-        this.food = new ArrayList<>();
     }
 
     public String getName(){
@@ -52,9 +54,10 @@ public class Player {
         return sentence;
     }
 
-//
-//    public ArrayList getAnimals(){
-//        return animals;
-//    }
+    public String foodInfo(){
+        return "Living Flies: " + this.livingFlies.getKilos() + "Kg  |  " +
+                "Sweet Corn: " + this.sweetCorn.getKilos() + "Kg  |  " +
+                "Cat Chow: " + this.catChow.getKilos() + "Kg";
+    }
 
 }

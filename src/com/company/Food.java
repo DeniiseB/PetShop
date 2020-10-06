@@ -2,11 +2,11 @@ package com.company;
 
 abstract class Food {
 
-    protected double kiloprice;
-    protected double kilos;
+    protected int kiloprice;
+    protected int kilos;
     protected String type;
 
-    public double getKiloprice(){
+    public int getKiloprice(){
         return kiloprice;
     }
 
@@ -14,9 +14,14 @@ abstract class Food {
         return type;
     }
 
-    public double getKilos(){
+    public int getKilos(){
         return kilos;
     }
+
+    public void addKilos(int extraKilos){
+        this.kilos += extraKilos;
+    }
+
 
 
 }

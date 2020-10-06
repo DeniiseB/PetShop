@@ -2,8 +2,11 @@ package com.company;
 
 public class SweetCorn extends Food {
 
-    private final double kiloprice = 9.75;
-    private final String type = "Sweet corn";
-    private double kilos;
+    private int kiloprice = 9;
+    private final String type = "Sweet Corn";
+    private int kilos;
 
+    public int getKiloprice(){
+        return kiloprice;
+    }
 }

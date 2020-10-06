@@ -26,7 +26,6 @@ public class Shop {
             }
         } while (loop);
         if (choice == 6) {
-            System.out.println(boughtAnything);
             return;
         }
         addAnimal(player, choice);
@@ -47,7 +46,7 @@ public class Shop {
             }
         } while (loop);
 
-        if (choice == 1){
+        if (choice == 1) {
             buyAnimal(player);
         }
     }
@@ -73,14 +72,12 @@ public class Shop {
             case 2 -> new Pike(petName, gender);
             case 3 -> new Pheasant(petName, gender);
             case 4 -> new Ferret(petName, gender);
-            case 5 -> new Badger(petName, gender);
-            default -> throw new IllegalStateException("Unexpected value");
+            default -> new Badger(petName, gender);
         };
-        // If takingPayment returns true, boughtPet changes to true
+        // If takingPayment returns true, boughtAnything changes to true
         if (takingAnimalPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
             this.boughtAnything = true;
-            return;
         }
     }
 
@@ -107,8 +104,8 @@ public class Shop {
         do {
             Scanner scanner = new Scanner(System.in);
             print("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)");
-            print("1. Living Flies, £7.25/Kg \n2. Sweet Corn, £9.75/Kg \n3. Cat Chow, £12.50/Kg \n4. BACK" +
-                    " (This option will change to next player if you have already bought food");
+            print("1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +
+                    " (This option will change to next player if you have already bought food)");
             try {
                 choice = scanner.nextInt();
                 loop = false;
@@ -121,10 +118,11 @@ public class Shop {
             }
         } while (loop);
         if (choice == 4) {
-            System.out.println(boughtAnything);
             return;
         }
-//        addAnimal(player, choice);
+
+        addFood(player, choice);
+
         // After buying food, player gets option to buy more
         do {
             print("Buy more food? (Select 1-2. Press ENTER.)\n1. Yes\n2. No");
@@ -142,10 +140,53 @@ public class Shop {
             }
         } while (loop);
 
-        if (choice == 1){
+        if (choice == 1) {
             buyFood(player);
         }
     }
+
+
+    public void addFood(Player player, int choice) {
+        Scanner newScanner = new Scanner(System.in);
+        boolean loop = true;
+        int kilos = 0;
+
+        print("How many kilos?");
+        do {
+            try {
+                kilos = newScanner.nextInt();
+                loop = false;
+            } catch (Exception e) {
+                print("Only type in numbers!");
+            }
+        } while (loop);
+
+        Food tempFood = switch (choice) {
+            case 1 -> player.livingFlies;
+            case 2 -> player.sweetCorn;
+            default -> player.catChow;
+        };
+// If takingPayment returns true, boughtAnything changes to true
+        if (takingFoodPayment(player, tempFood, kilos)) {
+            tempFood.addKilos(kilos);
+            this.boughtAnything = true;
+        }
+    }
+
+
+    public boolean takingFoodPayment(Player player, Food food, int kilos) {
+        // If player has enough money to buy food, takingPayment returns true
+        int finalPrice = food.getKiloprice() * kilos;
+        if (player.getMoney() < finalPrice) {
+            print("You don't have enough money to buy that.\nYou have £" + player.getMoney() + " left and" +
+                    "the total price comes to £" + finalPrice);
+            return false;
+        }
+        player.setMoney(player.getMoney() - finalPrice);
+        print("\nYou have £" + player.getMoney() + " left.");
+        return true;
+    }
+
 
     private void print(String x) {
         // print a string if it is not empty

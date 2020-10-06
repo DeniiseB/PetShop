@@ -94,7 +94,8 @@ public class Game {
                 break;
             }
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
-                    + "  Money: £" + currentPlayer.getMoney() + "\n");
+                    + "  Money: £" + currentPlayer.getMoney() + "\nFood:\n-----");
+            print(currentPlayer.foodInfo());
             print("Pets:\n-----");
             print(currentPlayer.animalsInfo());
             do {
