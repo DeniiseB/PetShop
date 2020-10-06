@@ -28,14 +28,9 @@ public class Game {
 
     public void addPlayer() {
         // Method that adds players to players arraylist, with exception handler
-        print("Enter name of player (0 to skip to Main Menu):");
-        try {
-            newPlayer = scanner.next();
-        } catch (Exception e) {
-            print("Only type your name with letters, please!");
-            scanner.next();
-            addPlayer();
-        }
+
+        newPlayer = Dialogs.promptString("Enter name of player (0 to skip to Main Menu):");
+
         if (newPlayer.equals("0")) {
             // Making sure at least one player gets added
             if (players.size() == 0) {
@@ -51,6 +46,7 @@ public class Game {
         }
         addPlayer();
     }
+
 
     public void mainMenu() {
 

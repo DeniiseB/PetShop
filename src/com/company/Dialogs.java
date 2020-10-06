@@ -12,7 +12,11 @@ public abstract class Dialogs {
 
     static public String promptString(String question){
         System.out.println(question);
-        return scanner.nextLine();
+        String input = "";
+        try{
+        input = scanner.nextLine();}
+        catch(Exception ignore){promptString(question);}
+        return input;
     }
 
     static public int promptInt(String question, int min, int max){
