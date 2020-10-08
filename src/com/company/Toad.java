@@ -2,7 +2,7 @@ package com.company;
 
 public class Toad extends Animal {
 
-    private int price = 5;
+    private int price = 5; // May have to put price in constructor!!
 
 
     public Toad(String name, String gender)
@@ -15,13 +15,13 @@ public class Toad extends Animal {
         return price;
     }
 
-//    public void eat(Food food){
-//        if(food instanceof SweetCorn || food instanceof CatChow){
-//            System.out.printf("%s shakes it's head in disgust.", this.name);
-//            return;
-//        }
-//        super.eat(food);
-//    }
+    public void eat(Food food, int kilos){
+        if(food instanceof SweetCorn || food instanceof CatChow){
+            System.out.printf("%s turns it's head away in disgust.\n", this.name);
+            return;
+        }
+        super.eat(food, kilos);
+    }
 
 
 }

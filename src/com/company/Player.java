@@ -66,4 +66,19 @@ public class Player {
         return this.livingFlies.getKilos() + this.sweetCorn.getKilos() + this.catChow.getKilos();
     }
 
+    public void feed(Food food){
+        if(this.animals.size() == 0) {
+            System.out.println("You don't have any pets to feed!");
+            return;
+        }
+        System.out.println(this.animalsInfo());
+        int choice = Dialogs.promptInt("--Pick pet(number) to feed--\n", 0,this.animals.size());
+
+        Animal animal = this.animals.get(choice - 1);
+
+        int kilos = Dialogs.promptInt("Enter kilos to feed " + animal.name +
+                ":", 0, 10000);
+        animal.eat(food, kilos);
+    }
+
 }

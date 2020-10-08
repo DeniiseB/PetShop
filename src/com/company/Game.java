@@ -89,10 +89,8 @@ public class Game {
                         shop.buyFood(currentPlayer);
                         break;
                     case 3:
-                        try {
-                            foodChoice(currentPlayer).feed(currentPlayer);
-                        } catch (Exception ignore) {
-                        }
+                        // foodChoice() in Game lets player choose food as an argument to Player feed()
+                        currentPlayer.feed(foodChoice(currentPlayer));
                         break;
                     case 4:
                         break;
@@ -130,9 +128,9 @@ public class Game {
     }
 
     public Food foodChoice(Player player) {
+
         print(player.foodInfo());
-        if (player.foodTotalKilos() == 0)
-        {
+        if (player.foodTotalKilos() == 0) {
             print("You have no food.");
             return null;
         }
