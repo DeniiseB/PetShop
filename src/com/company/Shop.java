@@ -8,8 +8,8 @@ public class Shop {
 
     public void buyAnimal(Player player) {
         int choice = 0;     // MOVE to fields?
-
-        choice = Dialogs.promptInt("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-6. Press ENTER)"
+        Dialogs.clear();
+        choice = Dialogs.promptInt("\nThe Dodgy Pet Shop\n------------------\n(Select 1-6. Press ENTER)"
                 + "\n1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40 \n5. Badger, £60" +
                 " \n6. BACK (This option will change to next player if you have already bought a pet)", 1, 6);
 
@@ -63,8 +63,7 @@ public class Shop {
             return false;
         }
         player.setMoney(player.getMoney() - animal.getPrice());
-        print("Hope you enjoy your " + animal.getClass().getSimpleName() + "!\nYou have £"
-                + player.getMoney() + " left.");
+        print("You have £" + player.getMoney() + " left.");
         return true;
     }
 
@@ -75,10 +74,10 @@ public class Shop {
 
     public void buyFood(Player player) {
         int choice = 0;     // MOVE to fields?
-
-            choice = Dialogs.promptInt("\n".repeat(5) + "\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)\n" +
-                    "1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +
-                    " (This option will change to next player if you have already bought food)", 1,4);
+        Dialogs.clear();
+        choice = Dialogs.promptInt("\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)\n" +
+                "1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +
+                " (This option will change to next player if you have already bought food)", 1, 4);
 
         if (choice == 4) {
             return;

@@ -13,8 +13,10 @@ public class Pike extends Animal {
         return price;
     }
 
-    public void eat(Food food, int kilos){
+    public boolean eat(Food food, int kilos){
         super.eat(food, kilos);
+        return true;
     }
+
 
 }

@@ -34,13 +34,18 @@ abstract class Animal {
         return price;
     }
 
-    public void eat(Food food, int kilos){
+    public boolean eat(Food food, int kilos){
         this.health += (kilos * 10);
         if(this.health > 100) {
             this.health = 100;
         }
-        System.out.println(this.name + ": Omnomnom..." + "\n" +
-                this.getClass().getSimpleName() + " " + this.health + "% health");
+        System.out.println(this.name + ": Omnomnom..." + "\n" + "^^ " + this.health + "% health");
+        try {
+            Thread.sleep(4000);
+        }
+        catch(Exception ignore){}
+
+        return true;
     }
 
 

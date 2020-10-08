@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
@@ -32,26 +31,35 @@ public class Player {
         this.money = newMoney;
     }
 
-    public String animalsInfo(){
+    public String animalsInfoReduceHealth(){
         String sentence = "";
         ArrayList<Animal> toRemove = new ArrayList<>();
-        int h = 0;
 
         for(Animal animal: this.animals){
-            h++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
             if(animal.health <= 0){
-                sentence = sentence + "\n" + h + ". " + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
+                sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);
                 continue;
             }
-            sentence = sentence + "\n" + h + ". " + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+            sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
                     + animal.getGender() + ", " + animal.health + "% Health";
         }
         // to avoid ConcurrentModificationException
         this.animals.removeAll(toRemove);
+        return sentence;
+    }
+
+    public String animalsInfo(){
+        String sentence = "";
+        int h = 0;
+        for(Animal animal: this.animals){
+            h++;
+           sentence += "\n" + h + ". " + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+                    + animal.getGender() + ", " + animal.health + "% Health";
+        }
         return sentence;
     }
 
@@ -66,19 +74,35 @@ public class Player {
         return this.livingFlies.getKilos() + this.sweetCorn.getKilos() + this.catChow.getKilos();
     }
 
-    public void feed(Food food){
+    public boolean feed(Food food){
+        if(food == null || food.kilos == 0){
+            print("You don't have that type of food.");
+            return false;}
         if(this.animals.size() == 0) {
-            System.out.println("You don't have any pets to feed!");
-            return;
+            print("You don't have any pets to feed!");
+            return false;
         }
+        int kilos = Dialogs.promptInt("How many kilos? (Each kilo gives 10% health)", 0, 10000);
+
+        if(kilos > food.kilos){
+            print("You don't have that much food.");
+            return false;
+        }
+
         System.out.println(this.animalsInfo());
-        int choice = Dialogs.promptInt("--Pick pet(number) to feed--\n", 0,this.animals.size());
+        int choice = Dialogs.promptInt("--Pick pet(number) to feed--", 0,this.animals.size());
 
         Animal animal = this.animals.get(choice - 1);
 
-        int kilos = Dialogs.promptInt("Enter kilos to feed " + animal.name +
-                ":", 0, 10000);
-        animal.eat(food, kilos);
+        return animal.eat(food, kilos);
+
+    }
+
+    private void print(String x) {
+        // print a string if it is not empty
+        if (!x.equals("")) {
+            System.out.println(x);
+        }
     }
 
 }

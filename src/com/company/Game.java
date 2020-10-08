@@ -74,12 +74,12 @@ public class Game {
                 break;
             }
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
-                    + "  Money: £" + currentPlayer.getMoney() + "\nFood:  " + currentPlayer.foodInfo() + "\n-----");
-            print("Pets:\n-----" + currentPlayer.animalsInfo());
+                    + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
+            print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth());
             shop.boughtAnything = 0;
             do {
-                int choice = Dialogs.promptInt("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                        "\n5. Sell Animal \n6. EXIT GAME", 1, 6);
+                int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
+                        "\n4. Create Baby Animal \n5. Sell Animal \n6. EXIT GAME\n-----", 1, 6);
 
                 switch (choice) {
                     case 1:
@@ -90,7 +90,10 @@ public class Game {
                         break;
                     case 3:
                         // foodChoice() in Game lets player choose food as an argument to Player feed()
-                        currentPlayer.feed(foodChoice(currentPlayer));
+                        // returns true if animal ate anything
+                        if(currentPlayer.feed(foodChoice(currentPlayer))){
+                            shop.boughtAnything++;
+                        }
                         break;
                     case 4:
                         break;
