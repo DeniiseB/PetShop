@@ -34,10 +34,15 @@ abstract class Animal {
         return price;
     }
 
-    public void eat(Food food){
+    public void eat(Food food, int kilos){
+        this.health += (kilos * 10);
+        if(this.health > 100) {
+            this.health = 100;
+        }
         System.out.println(this.name + ": Omnomnom..." + "\n" +
                 this.getClass().getSimpleName() + " " + this.health + "% health");
     }
+
 
 
 }

@@ -33,20 +33,21 @@ public class Player {
     }
 
     public String animalsInfo(){
-        Random random = new Random();
         String sentence = "";
         ArrayList<Animal> toRemove = new ArrayList<>();
+        int h = 0;
 
         for(Animal animal: this.animals){
+            h++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
             if(animal.health <= 0){
-                sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
+                sentence = sentence + "\n" + h + ". " + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);
                 continue;
             }
-            sentence = sentence + "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+            sentence = sentence + "\n" + h + ". " + animal.getClass().getSimpleName() + ", " + animal.name + ", "
                     + animal.getGender() + ", " + animal.health + "% Health";
         }
         // to avoid ConcurrentModificationException
@@ -55,10 +56,14 @@ public class Player {
     }
 
     public String foodInfo(){
-        return "Living Flies: " + this.livingFlies.getKilos() + "Kg  |  " +
-                "Sweet Corn: " + this.sweetCorn.getKilos() + "Kg  |  " +
-                "Cat Chow: " + this.catChow.getKilos() + "Kg";
+        return "1. Living Flies: " + this.livingFlies.getKilos() + "Kg  |  " +
+                "2. Sweet Corn: " + this.sweetCorn.getKilos() + "Kg  |  " +
+                "3. Cat Chow: " + this.catChow.getKilos() + "Kg";
     }
 
+    public int foodTotalKilos()
+    {
+        return this.livingFlies.getKilos() + this.sweetCorn.getKilos() + this.catChow.getKilos();
+    }
 
 }

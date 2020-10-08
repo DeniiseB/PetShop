@@ -15,13 +15,13 @@ public class Toad extends Animal {
         return price;
     }
 
-    public void eat(Food food){
-        if(food instanceof SweetCorn || food instanceof CatChow){
-            System.out.printf("%s shakes it's head in disgust.", this.name);
-            return;
-        }
-        super.eat(food);
-    }
+//    public void eat(Food food){
+//        if(food instanceof SweetCorn || food instanceof CatChow){
+//            System.out.printf("%s shakes it's head in disgust.", this.name);
+//            return;
+//        }
+//        super.eat(food);
+//    }
 
 
 }

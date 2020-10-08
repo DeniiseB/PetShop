@@ -16,14 +16,8 @@ public class Game {
     Shop shop = new Shop();
 
     public Game() {
-
-        Badger badger = new Badger("Bob", "Female");
-        SweetCorn sweetCorn = new SweetCorn();
-        CatChow catChow = new CatChow();
-        badger.eat(sweetCorn);
-
         // Make the player choose a decent number of rounds
-        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5,30);
+        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5, 30);
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
@@ -80,14 +74,12 @@ public class Game {
                 break;
             }
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
-                    + "  Money: £" + currentPlayer.getMoney() + "\nFood:\n-----");
-            print(currentPlayer.foodInfo());
-            print("Pets:\n-----");
-            print(currentPlayer.animalsInfo());
+                    + "  Money: £" + currentPlayer.getMoney() + "\nFood:  " + currentPlayer.foodInfo() + "\n-----");
+            print("Pets:\n-----" + currentPlayer.animalsInfo());
             shop.boughtAnything = 0;
             do {
                 int choice = Dialogs.promptInt("\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal \n4. Create Baby Animal" +
-                        "\n5. Sell Animal \n6. EXIT GAME", 1,6);
+                        "\n5. Sell Animal \n6. EXIT GAME", 1, 6);
 
                 switch (choice) {
                     case 1:
@@ -97,6 +89,10 @@ public class Game {
                         shop.buyFood(currentPlayer);
                         break;
                     case 3:
+                        try {
+                            foodChoice(currentPlayer).feed(currentPlayer);
+                        } catch (Exception ignore) {
+                        }
                         break;
                     case 4:
                         break;
@@ -131,6 +127,25 @@ public class Game {
         }
         playerIndex++;
         currentPlayer = players.get(playerIndex);
+    }
+
+    public Food foodChoice(Player player) {
+        print(player.foodInfo());
+        if (player.foodTotalKilos() == 0)
+        {
+            print("You have no food.");
+            return null;
+        }
+        int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
+        if (choice == 4) {
+            return null;
+        }
+        Food foodType = switch (choice) {
+            case 1 -> player.livingFlies;
+            case 2 -> player.sweetCorn;
+            default -> player.catChow;
+        };
+        return foodType;
     }
 
 

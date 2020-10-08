@@ -12,11 +12,11 @@ public class Badger extends Animal {
         return price;
     }
 
-    public void eat(Food food){
+    public void eat(Food food, int kilos){
         if(food instanceof LivingFlies || food instanceof SweetCorn){
             System.out.printf("%s shakes it's head in disgust.", this.name);
             return;
         }
-        super.eat(food);
+        super.eat(food, kilos);
     }
 }
