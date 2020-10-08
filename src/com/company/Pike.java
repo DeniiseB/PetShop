@@ -12,4 +12,9 @@ public class Pike extends Animal {
     public int getPrice(){
         return price;
     }
+
+    public void eat(Food food){
+        super.eat(food);
+    }
+
 }

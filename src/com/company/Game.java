@@ -16,6 +16,12 @@ public class Game {
     Shop shop = new Shop();
 
     public Game() {
+
+        Badger badger = new Badger("Bob", "Female");
+        SweetCorn sweetCorn = new SweetCorn();
+        CatChow catChow = new CatChow();
+        badger.eat(sweetCorn);
+
         // Make the player choose a decent number of rounds
         this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5,30);
         addPlayer();
@@ -55,7 +61,8 @@ public class Game {
                 "1. Game rules\n2. START GAME\n3. Exit game", 1, 3);
         switch (choice) {
             case 1:
-                print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n");
+                print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n" +
+                        "Disclaimer: This game isn't based on real life situations.");
                 mainMenu();
             case 2:
                 gameMenu();

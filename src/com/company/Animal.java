@@ -35,7 +35,8 @@ abstract class Animal {
     }
 
     public void eat(Food food){
-        System.out.println(this.getClass().getSimpleName() + ": omnomnom...");
+        System.out.println(this.name + ": Omnomnom..." + "\n" +
+                this.getClass().getSimpleName() + " " + this.health + "% health");
     }
 
 
