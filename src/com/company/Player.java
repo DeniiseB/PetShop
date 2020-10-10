@@ -83,12 +83,14 @@ public class Player {
             print("You have to buy some food first.");
             return false;
         }
+
         print(this.foodInfo());
 
         int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
         if (choice == 4) {
             return false;
         }
+
         Food foodType = switch (choice) {
             case 1 -> this.livingFlies;
             case 2 -> this.sweetCorn;

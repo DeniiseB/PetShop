@@ -77,6 +77,7 @@ public class Game {
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth());
             shop.boughtAnything = 0;
+            boolean roundPlayed = false;
             do {
                 int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
                         "\n4. Create Baby Animal \n5. Sell Animal \n6. EXIT GAME\n-----", 1, 6);
@@ -89,11 +90,8 @@ public class Game {
                         shop.buyFood(currentPlayer);
                         break;
                     case 3:
-                        // foodChoice() in Game lets player choose food as an argument to Player feed()
                         // returns true if animal ate anything
-                        if(currentPlayer.feed()){
-                            shop.boughtAnything++; // Maybe CHANGE..
-                        }
+                        roundPlayed = currentPlayer.feed();
                         break;
                     case 4:
                         break;
@@ -102,7 +100,7 @@ public class Game {
                     case 6:
                         System.exit(0);
                 }
-            } while (shop.boughtAnything == 0);
+            } while (shop.boughtAnything == 0 && !roundPlayed);
         } while (loop);
         print("GAME OVER");
         // Add method with end stats
