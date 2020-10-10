@@ -103,7 +103,7 @@ public class Game {
                 }
             } while (shop.boughtSoldAnything == 0 && !roundPlayed);
         } while (loop);
-        print("GAME OVER");
+        print(endStats());
         // Add method with end stats
     }
 
@@ -127,6 +127,27 @@ public class Game {
         }
         playerIndex++;
         currentPlayer = players.get(playerIndex);
+    }
+
+    public String endStats(){
+        String sentence = "";
+        for(Player player: players){
+            for(Animal animal: player.animals){
+                player.setMoney(player.getMoney() + animal.worth());
+            }
+            sentence += player.getName() + " has £" + player.getMoney() + "\n";
+        }
+
+//        for(Player player: players){
+//            if(players.size() == 1)
+//            {break;}
+//            for(Player player1: players){
+//                if(player.getMoney() > player1.getMoney()){
+//                    players.remove(player1);
+//                }
+//            }
+//        }
+        return sentence;
     }
 
 
