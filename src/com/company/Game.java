@@ -92,7 +92,7 @@ public class Game {
                         // foodChoice() in Game lets player choose food as an argument to Player feed()
                         // returns true if animal ate anything
                         if(currentPlayer.feed(foodChoice(currentPlayer))){
-                            shop.boughtAnything++;
+                            shop.boughtAnything++; // Maybe CHANGE..
                         }
                         break;
                     case 4:

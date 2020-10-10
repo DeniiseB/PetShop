@@ -2,14 +2,9 @@ package com.company;
 
 public class Badger extends Animal {
 
-    private int price = 60;  // May have to put price in constructor!!
-
     public Badger(String name, String gender) {
         super(name, gender);
-    }
-
-    public int getPrice() {
-        return price;
+        price = 60;
     }
 
     public boolean eat(Food food, int kilos){
