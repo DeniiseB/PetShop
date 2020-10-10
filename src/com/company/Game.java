@@ -90,11 +90,10 @@ public class Game {
                         shop.buyFood(currentPlayer);
                         break;
                     case 3:
-                        // returns true if animal ate anything
-                        roundPlayed = currentPlayer.feed();
+                        currentPlayer.feed();
                         break;
                     case 4:
-                        currentPlayer.createNewAnimals();
+                        roundPlayed = currentPlayer.createNewAnimals();
                         break;
                     case 5:
                         break;

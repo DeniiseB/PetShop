@@ -1,10 +1,12 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Player {
 
+    Random random = new Random();
     private final String name;
     private int money = 100;
     public ArrayList<Animal> animals;
@@ -74,22 +76,22 @@ public class Player {
         return this.livingFlies.getKilos() + this.sweetCorn.getKilos() + this.catChow.getKilos();
     }
 
-    public boolean feed() {
+    public void feed() {
 
         if (this.animals.size() == 0) {
             print("You don't have any pets to feed!");
-            return false;
+            return;
         }
         if (this.foodTotalKilos() == 0) {
             print("You have to buy some food first.");
-            return false;
+            return;
         }
 
         print(this.foodInfo());
 
         int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
         if (choice == 4) {
-            return false;
+            return;
         }
 
         Food foodType = switch (choice) {
@@ -100,7 +102,7 @@ public class Player {
 
         if (foodType.kilos == 0) {
             print("You have to buy some of that food first.");
-            return false;
+            return;
         }
 
         System.out.println(this.animalsInfo());
@@ -111,21 +113,19 @@ public class Player {
 
         if (kilos > foodType.kilos) {
             print("You don't have that much food.");
-            return false;
+            return;
         }
-
-        return animal.eat(foodType, kilos);
+        animal.eat(foodType, kilos);
 
     }
 
 
-    public void createNewAnimals(){
-        if(this.animals.size() == 0)
-        {
+    public boolean createNewAnimals() {
+        if (this.animals.size() == 0) {
             print("You don't have any pets.");
-            return;
+            return false;
         }
-
+        Dialogs.clear();
         System.out.println(this.animalsInfo());
         int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--", 0, this.animals.size());
         Animal animal1 = this.animals.get(choice - 1);
@@ -134,27 +134,40 @@ public class Player {
         int i = 0;
 
         // Loops through the players animals to find a suitable match
-        for(Animal animal: this.animals){
+        for (Animal animal : this.animals) {
             String className = animal.getClass().getSimpleName();
-            if(!className1.equals(className)){
+            if (!className1.equals(className)) {
                 continue;
             }
-            if(animal.getGender().equals(animal1.getGender())){
+            if (animal.getGender().equals(animal1.getGender())) {
                 continue;
             }
             options.add(animal);
-            print(i++ + ". " + animal.name + ", " + animal.getClass().getSimpleName() + ", " + animal.getGender());
+            print(++i + ". " + animal.name + ", " + animal.getClass().getSimpleName() + ", " + animal.getGender());
         }
 
-        if (options.size() == 0){
-        print("There are no suitable partners for " + animal1.name);
-        return;
+        if (options.size() == 0) {
+            print("\nThere are no suitable partners for " + animal1.name + ".\nBuy an animal of opposite gender " +
+                    "but same species to succeed.");
+            return false;
         }
-//
-//        int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--", 0, this.animals.size());
-//        Animal animal1 = this.animals.get(choice - 1);
 
+        choice = Dialogs.promptInt("--Pick a partner for " + animal1.name + "--", 0, this.animals.size());
+        Animal animal2 = options.get(choice - 1);
 
+        i = random.nextInt(2) + 1;
+        if (i == 1) {
+            print("Sorry, no baby " + animal1.getClass().getSimpleName() + "lings today.");
+            return true;
+        }
+        String gender = animal1.getRandomGender();
+        print("Congrats! You have a new " + gender + " " + animal1.getClass().getSimpleName());
+        String newName = Dialogs.promptString("Name your new pet:");
+
+        this.animals.add(animal1.createBabyAnimal(animal2, newName, gender));
+
+        print(this.animalsInfo());
+        return true;
     }
 
 

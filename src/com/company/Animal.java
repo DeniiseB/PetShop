@@ -18,10 +18,10 @@ abstract class Animal {
     }
 
     private String setGender(String i){
-        return (i.contains("f") ? "Female" : "Male");
+        return ((i.contains("f") || i.contains("F")) ? "Female" : "Male");
     }
 
-    private String setRandomGender(){
+    public String getRandomGender(){
         int i = random.nextInt(2)+1;
         return (i == 1 ? "Female" : "Male");
     }
