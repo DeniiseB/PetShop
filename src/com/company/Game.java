@@ -94,6 +94,7 @@ public class Game {
                         roundPlayed = currentPlayer.feed();
                         break;
                     case 4:
+                        currentPlayer.createNewAnimals();
                         break;
                     case 5:
                         break;

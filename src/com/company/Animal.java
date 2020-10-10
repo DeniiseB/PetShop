@@ -41,11 +41,23 @@ abstract class Animal {
         }
         System.out.println(this.name + ": Omnomnom..." + "\n" + "^^ " + this.health + "% health");
         try {
-            Thread.sleep(4000);
+            Thread.sleep(3000);
         }
         catch(Exception ignore){}
 
         return true;
+    }
+
+    public Animal createBabyAnimal(Animal partner, String name, String gender){
+        String className = this.getClass().getSimpleName();
+        Animal babyAnimal = switch (className){
+            case "Toad" -> new Toad(name, gender);
+            case "Pike" -> new Pike(name, gender);
+            case "Pheasant" -> new Pheasant(name, gender);
+            case "Ferret" -> new Ferret(name, gender);
+            default -> new Badger(name,gender);
+        };
+        return babyAnimal;
     }
 
 

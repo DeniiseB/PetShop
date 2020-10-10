@@ -31,6 +31,7 @@ public class Player {
         this.money = newMoney;
     }
 
+    //A method for the beginning of each round
     public String animalsInfoReduceHealth() {
         String sentence = "";
         ArrayList<Animal> toRemove = new ArrayList<>();
@@ -116,6 +117,46 @@ public class Player {
         return animal.eat(foodType, kilos);
 
     }
+
+
+    public void createNewAnimals(){
+        if(this.animals.size() == 0)
+        {
+            print("You don't have any pets.");
+            return;
+        }
+
+        System.out.println(this.animalsInfo());
+        int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--", 0, this.animals.size());
+        Animal animal1 = this.animals.get(choice - 1);
+        String className1 = animal1.getClass().getSimpleName();
+        ArrayList<Animal> options = new ArrayList<>();
+        int i = 0;
+
+        // Loops through the players animals to find a suitable match
+        for(Animal animal: this.animals){
+            String className = animal.getClass().getSimpleName();
+            if(!className1.equals(className)){
+                continue;
+            }
+            if(animal.getGender().equals(animal1.getGender())){
+                continue;
+            }
+            options.add(animal);
+            print(i++ + ". " + animal.name + ", " + animal.getClass().getSimpleName() + ", " + animal.getGender());
+        }
+
+        if (options.size() == 0){
+        print("There are no suitable partners for " + animal1.name);
+        return;
+        }
+//
+//        int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--", 0, this.animals.size());
+//        Animal animal1 = this.animals.get(choice - 1);
+
+
+    }
+
 
     private void print(String x) {
         // print a string if it is not empty
