@@ -115,7 +115,7 @@ public class Shop {
         int finalPrice = food.getKiloprice() * kilos;
         if (player.getMoney() < finalPrice) {
             print("You don't have enough money to buy that.\nYou have £" + player.getMoney() + " left and" +
-                    "the total price comes to £" + finalPrice);
+                    " the total price comes to £" + finalPrice);
             return false;
         }
         player.setMoney(player.getMoney() - finalPrice);

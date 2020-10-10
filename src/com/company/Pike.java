@@ -6,6 +6,7 @@ public class Pike extends Animal {
     {
         super(name, gender);
         price = 10;
+        numberOfBabies = 4;
     }
 
     public boolean eat(Food food, int kilos){

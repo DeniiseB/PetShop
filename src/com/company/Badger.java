@@ -5,6 +5,7 @@ public class Badger extends Animal {
     public Badger(String name, String gender) {
         super(name, gender);
         price = 60;
+        numberOfBabies = 2;
     }
 
     public boolean eat(Food food, int kilos){

@@ -6,6 +6,7 @@ public class Ferret extends Animal {
     {
         super(name, gender);
         price = 40;
+        numberOfBabies = 2;
     }
 
     public boolean eat(Food food, int kilos){

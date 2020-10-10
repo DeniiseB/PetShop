@@ -6,6 +6,7 @@ public class Pheasant extends Animal {
     {
         super(name, gender);
         price = 20;
+        numberOfBabies = 3;
     }
 
     public boolean eat(Food food, int kilos){

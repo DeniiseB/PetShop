@@ -11,6 +11,7 @@ abstract class Animal {
     protected int health = 100;
     protected String gender;
     protected int price;
+    protected int numberOfBabies;
 
     public Animal(String name, String gender){
         this.name = name;

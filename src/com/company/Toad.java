@@ -6,7 +6,7 @@ public class Toad extends Animal {
     {
         super(name, gender);
         price = 5;
-
+        numberOfBabies = 4;
     }
 
     public boolean eat(Food food, int kilos){

@@ -8,7 +8,7 @@ public class Player {
 
     Random random = new Random();
     private final String name;
-    private int money = 100;
+    private int money = 130;
     public ArrayList<Animal> animals;
     public LivingFlies livingFlies = new LivingFlies();
     public SweetCorn sweetCorn = new SweetCorn();
@@ -127,7 +127,9 @@ public class Player {
         }
         Dialogs.clear();
         System.out.println(this.animalsInfo());
-        int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--", 0, this.animals.size());
+        int choice = Dialogs.promptInt("--Pick pet(number) to create baby animal--" +
+                "\n(0. BACK)", 0, this.animals.size());
+        if(choice == 0){return false;}
         Animal animal1 = this.animals.get(choice - 1);
         String className1 = animal1.getClass().getSimpleName();
         ArrayList<Animal> options = new ArrayList<>();
@@ -145,28 +147,35 @@ public class Player {
             options.add(animal);
             print(++i + ". " + animal.name + ", " + animal.getClass().getSimpleName() + ", " + animal.getGender());
         }
-
         if (options.size() == 0) {
             print("\nThere are no suitable partners for " + animal1.name + ".\nBuy an animal of opposite gender " +
                     "but same species to succeed.");
             return false;
         }
-
-        choice = Dialogs.promptInt("--Pick a partner for " + animal1.name + "--", 0, this.animals.size());
+        choice = Dialogs.promptInt("--Pick a partner for " + animal1.name + "--" +
+                "\n(0. BACK)", 0, this.animals.size());
+        if(choice == 0){return false;}
         Animal animal2 = options.get(choice - 1);
-
         i = random.nextInt(2) + 1;
         if (i == 1) {
-            print("Sorry, no baby " + animal1.getClass().getSimpleName() + "lings today.");
+            print("Sorry, no baby " + animal1.getClass().getSimpleName() + "lings today =(");
+            try {
+                Thread.sleep(3000);
+            }
+            catch(Exception ignore){}
             return true;
         }
+
+        int j = 0;
+        do{
+            j++;
         String gender = animal1.getRandomGender();
         print("Congrats! You have a new " + gender + " " + animal1.getClass().getSimpleName());
         String newName = Dialogs.promptString("Name your new pet:");
 
         this.animals.add(animal1.createBabyAnimal(animal2, newName, gender));
+        }while(j < animal1.numberOfBabies);
 
-        print(this.animalsInfo());
         return true;
     }
 
