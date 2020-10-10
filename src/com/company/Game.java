@@ -76,7 +76,7 @@ public class Game {
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth());
-            shop.boughtAnything = 0;
+            shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;
             do {
                 int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
@@ -101,7 +101,7 @@ public class Game {
                     case 6:
                         System.exit(0);
                 }
-            } while (shop.boughtAnything == 0 && !roundPlayed);
+            } while (shop.boughtSoldAnything == 0 && !roundPlayed);
         } while (loop);
         print("GAME OVER");
         // Add method with end stats

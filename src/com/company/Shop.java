@@ -3,7 +3,7 @@ package com.company;
 import java.util.Scanner;
 
 public class Shop {
-    public int boughtAnything = 0;
+    public int boughtSoldAnything = 0;
 
 
     public void buyAnimal(Player player) {
@@ -52,7 +52,7 @@ public class Shop {
         // If takingPayment returns true, boughtAnything changes to true
         if (takingAnimalPayment(player, newAnimal)) {
             player.animals.add(newAnimal);
-            this.boughtAnything++;
+            this.boughtSoldAnything++;
         }
     }
 
@@ -101,7 +101,7 @@ public class Shop {
 
         if (takingFoodPayment(player, tempFood, kilos)) {
             tempFood.addKilos(kilos);
-            boughtAnything++;
+            boughtSoldAnything++;
         }
     }
 
@@ -125,18 +125,22 @@ public class Shop {
             return;
         }
         print(player.animalsInfo());
-        int choice = Dialogs.promptInt("--Select pet(number) to sell--\n(0. BACK)", 0, player.animals.size());
+        int choice = Dialogs.promptInt("--Select pet(number) to sell--\n" +
+                "(0. BACK *will skip to next player if already sold something*)", 0, player.animals.size());
         if(choice == 0){return;}
         Animal animal = player.animals.get(choice - 1);
 
-        System.out.println("You selected " + animal.name + " whos new price is " + animal.worth()); // REMOVE
-
         player.setMoney(player.getMoney() + animal.worth());
-        print("You just made £" + animal.worth() + "! You now have £" + player.getMoney() + " in total.");
+        print(animal.name + " just made you £" + animal.worth() + "! You now have £" + player.getMoney() + " in total.");
 
         player.animals.remove(animal);
-        print(player.animalsInfo()); // REMOVE
+        this.boughtSoldAnything++;
 
+        choice = Dialogs.promptInt("Sell another pet? (Select 1-2. Press ENTER.)\n1. Yes\n2. No", 1, 2);
+
+        if (choice == 1) {
+            sellAnimals(player);
+        }
     }
 
 
