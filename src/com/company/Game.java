@@ -91,7 +91,7 @@ public class Game {
                     case 3:
                         // foodChoice() in Game lets player choose food as an argument to Player feed()
                         // returns true if animal ate anything
-                        if(currentPlayer.feed(foodChoice(currentPlayer))){
+                        if(currentPlayer.feed()){
                             shop.boughtAnything++; // Maybe CHANGE..
                         }
                         break;
@@ -128,25 +128,6 @@ public class Game {
         }
         playerIndex++;
         currentPlayer = players.get(playerIndex);
-    }
-
-    public Food foodChoice(Player player) {
-
-        print(player.foodInfo());
-        if (player.foodTotalKilos() == 0) {
-            print("You have no food.");
-            return null;
-        }
-        int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
-        if (choice == 4) {
-            return null;
-        }
-        Food foodType = switch (choice) {
-            case 1 -> player.livingFlies;
-            case 2 -> player.sweetCorn;
-            default -> player.catChow;
-        };
-        return foodType;
     }
 
 
