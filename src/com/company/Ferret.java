@@ -18,4 +18,5 @@ public class Ferret extends Animal {
         return true;
     }
 
+
 }

@@ -67,13 +67,9 @@ public class Shop {
         return true;
     }
 
-    public void sellAnimal() {
-
-    }
-
 
     public void buyFood(Player player) {
-        int choice = 0;     // MOVE to fields?
+        int choice = 0; // MOVE to fields?
         Dialogs.clear();
         choice = Dialogs.promptInt("\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)\n" +
                 "1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +
@@ -121,6 +117,26 @@ public class Shop {
         player.setMoney(player.getMoney() - finalPrice);
         print("\nYou have £" + player.getMoney() + " left.");
         return true;
+    }
+
+    public void sellAnimals(Player player){
+        if(player.animals.size() == 0){
+            print("You have no pets to sell.");
+            return;
+        }
+        print(player.animalsInfo());
+        int choice = Dialogs.promptInt("--Select pet(number) to sell--\n(0. BACK)", 0, player.animals.size());
+        if(choice == 0){return;}
+        Animal animal = player.animals.get(choice - 1);
+
+        System.out.println("You selected " + animal.name + " whos new price is " + animal.worth()); // REMOVE
+
+        player.setMoney(player.getMoney() + animal.worth());
+        print("You just made £" + animal.worth() + "! You now have £" + player.getMoney() + " in total.");
+
+        player.animals.remove(animal);
+        print(player.animalsInfo()); // REMOVE
+
     }
 
 

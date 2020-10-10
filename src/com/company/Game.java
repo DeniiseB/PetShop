@@ -96,6 +96,7 @@ public class Game {
                         roundPlayed = currentPlayer.createNewAnimals();
                         break;
                     case 5:
+                        shop.sellAnimals(currentPlayer);
                         break;
                     case 6:
                         System.exit(0);

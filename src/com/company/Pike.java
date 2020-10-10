@@ -14,5 +14,4 @@ public class Pike extends Animal {
         return true;
     }
 
-
 }

@@ -16,4 +16,5 @@ public class Badger extends Animal {
         super.eat(food, kilos);
         return true;
     }
+
 }

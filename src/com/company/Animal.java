@@ -62,5 +62,11 @@ abstract class Animal {
     }
 
 
+    public int worth(){
+       double h = this.health;
+       // Rounds the double up or down to nearest int
+       int toReturn = (int)Math.round((h/100) * this.price);
+       return toReturn;
+    }
 
 }
