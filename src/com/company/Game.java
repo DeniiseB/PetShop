@@ -17,7 +17,7 @@ public class Game {
 
     public Game() {
         // Make the player choose a decent number of rounds
-        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5, 30);
+        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 3,30); // CHANGE back
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
@@ -131,6 +131,7 @@ public class Game {
 
     public String endStats(){
         String sentence = "";
+        ArrayList<Player> losers = new ArrayList<>();
         for(Player player: players){
             for(Animal animal: player.animals){
                 player.setMoney(player.getMoney() + animal.worth());
@@ -138,15 +139,21 @@ public class Game {
             sentence += player.getName() + " has £" + player.getMoney() + "\n";
         }
 
-//        for(Player player: players){
-//            if(players.size() == 1)
-//            {break;}
-//            for(Player player1: players){
-//                if(player.getMoney() > player1.getMoney()){
-//                    players.remove(player1);
-//                }
-//            }
-//        }
+        for(Player player: players){
+            for(Player player1: players){
+                if(player.getMoney() == player1.getMoney()){
+                    continue;
+                }
+                if(player.getMoney() > player1.getMoney()){
+                    losers.add(player1);
+                }
+            }
+        }
+        players.removeAll(losers);
+        for(Player player2: players){
+        sentence += "\n" + player2.getName() + " WINS!";
+        }
+
         return sentence;
     }
 
