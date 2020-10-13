@@ -17,7 +17,7 @@ public class Game {
 
     public Game() {
         // Make the player choose a decent number of rounds
-        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 3,30); // CHANGE back
+        this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5, 30);
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
@@ -55,8 +55,12 @@ public class Game {
                 "1. Game rules\n2. START GAME\n3. Exit game", 1, 3);
         switch (choice) {
             case 1:
-                print("Game rules:\n You have picked " + maxRounds + " rounds...ADD MORE.\n" +
-                        "Disclaimer: This game isn't based on real life situations.");
+                print("You have picked " + maxRounds + " rounds.\nWhen rounds are up, all players pets are sold" +
+                        " for their health\nvalue times initial price and the player with most money wins.\nOnly one option" +
+                        " in the menu can be picked per round per player.\nWhen a player doesn't have enough money to buy anything with," +
+                        "\nor any animals left to sell, they're out\nDisclaimer: This game isn't based on real life situations.");
+                Dialogs.promptString("Press ENTER to go back.");
+
                 mainMenu();
             case 2:
                 gameMenu();
@@ -72,6 +76,15 @@ public class Game {
             setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
                 break;
+            }
+            if(currentPlayer.getMoney() <= 5 && currentPlayer.animals.size() == 0){
+                print(currentPlayer.getName() + ", you don't have enough money to buy anything with, or any animals left. You're OUT!");
+                players.remove(currentPlayer);
+                try {
+                    Thread.sleep(3000);
+                }
+                catch(Exception ignore){}
+                continue;
             }
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
@@ -129,29 +142,29 @@ public class Game {
         currentPlayer = players.get(playerIndex);
     }
 
-    public String endStats(){
+    public String endStats() {
         String sentence = "";
         ArrayList<Player> losers = new ArrayList<>();
-        for(Player player: players){
-            for(Animal animal: player.animals){
+        for (Player player : players) {
+            for (Animal animal : player.animals) {
                 player.setMoney(player.getMoney() + animal.worth());
             }
             sentence += player.getName() + " has £" + player.getMoney() + "\n";
         }
 
-        for(Player player: players){
-            for(Player player1: players){
-                if(player.getMoney() == player1.getMoney()){
+        for (Player player : players) {
+            for (Player player1 : players) {
+                if (player.getMoney() == player1.getMoney()) {
                     continue;
                 }
-                if(player.getMoney() > player1.getMoney()){
+                if (player.getMoney() > player1.getMoney()) {
                     losers.add(player1);
                 }
             }
         }
         players.removeAll(losers);
-        for(Player player2: players){
-        sentence += "\n" + player2.getName() + " WINS!";
+        for (Player player2 : players) {
+            sentence += "\n" + player2.getName() + " WINS!";
         }
 
         return sentence;
