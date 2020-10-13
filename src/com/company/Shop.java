@@ -1,8 +1,9 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Shop {
+public class Shop implements Serializable {
     public int boughtSoldAnything = 0;
 
 

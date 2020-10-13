@@ -1,10 +1,11 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Player {
+public class Player implements Serializable {
 
     Random random = new Random();
     private final String name;

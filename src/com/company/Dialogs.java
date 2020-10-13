@@ -1,8 +1,9 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public abstract class Dialogs {
+public abstract class Dialogs implements Serializable {
 
     static private Scanner scanner = new Scanner(System.in);
 

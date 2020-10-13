@@ -1,9 +1,10 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-abstract class Animal {
+abstract class Animal implements Serializable {
 
     Random random = new Random();
 

@@ -1,6 +1,8 @@
 package com.company;
 
-public class Badger extends Animal {
+import java.io.Serializable;
+
+public class Badger extends Animal implements Serializable {
 
     public Badger(String name, String gender) {
         super(name, gender);

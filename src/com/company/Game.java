@@ -1,9 +1,10 @@
 package com.company;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Serializable {
 
     Scanner scanner = new Scanner(System.in);
 
@@ -14,8 +15,17 @@ public class Game {
     boolean firstRound = true;
     public String newPlayer = "";
     Shop shop = new Shop();
+    private String filePath = "animal-game.ser";
 
     public Game() {
+        // Write a new class Start? that starts off everything with the question
+        // 1. Start a new game 2. Return to a saved if game
+        // If 1 then new Game() otherwise ask for a file name, then deserialize the saved Game
+        //var deserialized = Serializer.deserialize(filePath);
+
+        // Add to the game menu: Save game
+        // If chosen ask the user for a file/game name call Serializer.serialize(filename, this) - save the whole game instance to file
+
         // Make the player choose a decent number of rounds
         this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5, 30);
         addPlayer();
@@ -127,7 +137,10 @@ public class Game {
             roundCounter++;
             return;
         }
-
+        if (players.size()==0){
+            print("No winners here today! GAME OVER.");
+            System.exit(0);
+        }
         // Changes the index number in players to set currentPlayer to next player
         int playerIndex = players.indexOf(currentPlayer);
 

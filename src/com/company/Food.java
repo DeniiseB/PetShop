@@ -1,6 +1,8 @@
 package com.company;
 
-abstract class Food {
+import java.io.Serializable;
+
+abstract class Food implements Serializable {
 
     protected int kiloprice;
     protected int kilos;

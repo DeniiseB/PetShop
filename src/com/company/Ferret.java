@@ -1,6 +1,8 @@
 package com.company;
 
-public class Ferret extends Animal {
+import java.io.Serializable;
+
+public class Ferret extends Animal implements Serializable {
 
     public Ferret(String name, String gender)
     {

@@ -1,6 +1,8 @@
 package com.company;
 
-public class Pheasant extends Animal {
+import java.io.Serializable;
+
+public class Pheasant extends Animal implements Serializable {
 
     public Pheasant(String name, String gender)
     {
