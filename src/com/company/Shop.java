@@ -161,7 +161,7 @@ public class Shop implements Serializable {
 
         double number = Math.random();
         animal.isSick = (number < 0.5);
-        print(animal.isSick ? "VET: I'm very sorry, " + animal.name + " died." : animal.name + " is feeling better!");
+        print(animal.isSick ? "VET: I'm very sorry, " + animal.name + " died..." : animal.name + " is feeling better!..");
         try {
             Thread.sleep(3000);
         }

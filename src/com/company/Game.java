@@ -36,7 +36,7 @@ public class Game implements Serializable {
                 break;
             }
             if(currentPlayer.getMoney() <= 5 && currentPlayer.animals.size() == 0){
-                print(currentPlayer.getName() + ", you don't have enough money to buy anything with, or any animals left. You're OUT!");
+                print(currentPlayer.getName() + ", you don't have enough money to buy anything with, or any animals left. You're OUT!..");
                 players.remove(currentPlayer);
                 try {
                     Thread.sleep(3000);

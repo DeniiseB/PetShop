@@ -132,6 +132,10 @@ public class Player implements Serializable {
                 "\n(0. BACK)", 0, this.animals.size());
         if(choice == 0){return false;}
         Animal animal1 = this.animals.get(choice - 1);
+        if(animal1.isSick){
+            print(animal1.name + " is too sick to try for baby " + animal1.getClass().getSimpleName());
+            return false;
+        }
         String className1 = animal1.getClass().getSimpleName();
         ArrayList<Animal> options = new ArrayList<>();
         int i = 0;
@@ -157,6 +161,10 @@ public class Player implements Serializable {
                 "\n(0. BACK)", 0, this.animals.size());
         if(choice == 0){return false;}
         Animal animal2 = options.get(choice - 1);
+        if(animal2.isSick){
+            print(animal2.name + " is too sick to try for baby " + animal2.getClass().getSimpleName());
+            return false;
+        }
         i = random.nextInt(2) + 1;
         if (i == 1) {
             print("Sorry, no baby " + animal1.getClass().getSimpleName() + "lings today =(");
