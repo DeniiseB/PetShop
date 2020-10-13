@@ -19,21 +19,12 @@ public class Game implements Serializable {
     int playerIndex = 0;
 
     public Game() {
-        // Write a new class Start? that starts off everything with the question
-        // 1. Start a new game 2. Return to a saved if game
-        // If 1 then new Game() otherwise ask for a file name, then deserialize the saved Game
-        //var deserialized = Serializer.deserialize(filePath);
-
-        // Add to the game menu: Save game
-        // If chosen ask the user for a file/game name call Serializer.serialize(filename, this) - save the whole game instance to file
-
         // Make the player choose a decent number of rounds
         this.maxRounds = Dialogs.promptInt("Choose rounds (5-30)", 5, 30);
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
         gameMenu();
-
     }
 
 
@@ -53,14 +44,16 @@ public class Game implements Serializable {
                 catch(Exception ignore){}
                 continue;
             }
+
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth());
+            currentPlayer.sickAnimals();
             shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;
             do {
                 int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
-                        "\n4. Create Baby Animal \n5. Sell Animal \n6. Main Menu\n-----", 1, 6);
+                        "\n4. Create Baby Animal \n5. Sell Animal \n6. See Veterinarian \n7. Main Menu\n-----", 1, 7);
 
                 switch (choice) {
                     case 1:
@@ -79,6 +72,8 @@ public class Game implements Serializable {
                         shop.sellAnimals(currentPlayer);
                         break;
                     case 6:
+                        break;
+                    case 7:
                         mainMenu();
                         break;
                 }

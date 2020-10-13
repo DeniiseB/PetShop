@@ -1,6 +1,7 @@
 package com.company;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Shop implements Serializable {
@@ -142,6 +143,26 @@ public class Shop implements Serializable {
         if (choice == 1) {
             sellAnimals(player);
         }
+    }
+
+    public void seeVet(Player player){
+        int counter = 0;
+        ArrayList <Animal> sickAnimals = new ArrayList<>();
+        for(Animal animal: player.animals){
+            if (animal.isSick){
+                sickAnimals.add(animal);
+            print(++counter + ". " + animal.name + " " + animal.getClass().getSimpleName());
+            }
+        }
+        int choice = Dialogs.promptInt("--Select pet(number) to treat--\n" +
+                "(0. BACK *will skip to next player if a pet has already been treated*)", 0, counter);
+        if(choice == 0){return;}
+        Animal animal = sickAnimals.get(choice - 1);
+
+        double number = Math.random();
+
+
+
     }
 
 

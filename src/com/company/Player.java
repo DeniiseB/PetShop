@@ -42,7 +42,7 @@ public class Player implements Serializable {
         for (Animal animal : this.animals) {
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
-            if (animal.health <= 0) {
+            if (animal.health <= 0 || animal.isSick) {
                 sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);
@@ -182,7 +182,10 @@ public class Player implements Serializable {
 
     public void sickAnimals(){
         for(Animal animal:this.animals){
-
+            double number = Math.random();
+            // If random number is 0.2 or less, animal gets sick (20% chance)
+            animal.isSick = number <= 0.2;
+            print(animal.isSick ? "\n" + animal.name + " is sick! Take them to the vet or they'll die!" : "");
         }
     }
 
