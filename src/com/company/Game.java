@@ -15,7 +15,7 @@ public class Game implements Serializable {
     boolean firstRound = true;
     public String newPlayer = "";
     Shop shop = new Shop();
-    private String filePath = "animal-game.ser";
+    int playerIndex = 0;
 
     public Game() {
         // Write a new class Start? that starts off everything with the question
@@ -31,7 +31,7 @@ public class Game implements Serializable {
         addPlayer();
         // Sets the first player to the first name in players arraylist
         this.currentPlayer = players.get(0);
-        mainMenu();
+        gameMenu();
 
     }
 
@@ -59,10 +59,9 @@ public class Game implements Serializable {
 
 
     public void mainMenu() {
-
         Dialogs.clear();
         int choice = Dialogs.promptInt("MAIN MENU\n---------\n(Pick 1-3, press ENTER)\n" +
-                "1. Game rules\n2. START GAME\n3. Exit game", 1, 3);
+                "1. Game rules\n2. RESUME\n3. Exit game", 1, 3);
         switch (choice) {
             case 1:
                 print("You have picked " + maxRounds + " rounds.\nWhen rounds are up, all players pets are sold" +
@@ -70,10 +69,8 @@ public class Game implements Serializable {
                         " in the menu can be picked per round per player.\nWhen a player doesn't have enough money to buy anything with," +
                         "\nor any animals left to sell, they're out\nDisclaimer: This game isn't based on real life situations.");
                 Dialogs.promptString("Press ENTER to go back.");
-
                 mainMenu();
             case 2:
-                gameMenu();
                 break;
             case 3:
                 System.exit(0);
@@ -103,7 +100,7 @@ public class Game implements Serializable {
             boolean roundPlayed = false;
             do {
                 int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
-                        "\n4. Create Baby Animal \n5. Sell Animal \n6. EXIT GAME\n-----", 1, 6);
+                        "\n4. Create Baby Animal \n5. Sell Animal \n6. Main Menu\n-----", 1, 6);
 
                 switch (choice) {
                     case 1:
@@ -122,7 +119,8 @@ public class Game implements Serializable {
                         shop.sellAnimals(currentPlayer);
                         break;
                     case 6:
-                        System.exit(0);
+                        mainMenu();
+                        break;
                 }
             } while (shop.boughtSoldAnything == 0 && !roundPlayed);
         } while (loop);
@@ -131,18 +129,19 @@ public class Game implements Serializable {
     }
 
     public void setPlayerAndRounds(Player player) {
-        // Code for first round only, to keep first player
+//         Code for first round only, to keep first player
         if (firstRound) {
             this.firstRound = false;
             roundCounter++;
             return;
         }
+        //MAKE SURE FIRST PLAYER STAYS AS FIRST PLAYER, (get.0???)
         if (players.size()==0){
             print("No winners here today! GAME OVER.");
             System.exit(0);
         }
         // Changes the index number in players to set currentPlayer to next player
-        int playerIndex = players.indexOf(currentPlayer);
+        playerIndex = players.indexOf(currentPlayer);
 
         // If it's the last players turn, change next player to first player again
         if (playerIndex >= players.size() - 1) {

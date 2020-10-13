@@ -6,7 +6,7 @@ public class Main implements Serializable {
 
     public static void main(String[] args) {
 
-        Game game = new Game();
+        StartUp.startUpMenu();
 
     }
 }
