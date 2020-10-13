@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public abstract class Dialogs implements Serializable {
 
-    static private Scanner scanner = new Scanner(System.in);
+    static public Scanner scanner = new Scanner(System.in);
 
     static public void clear(){
         System.out.println("\n".repeat(60));

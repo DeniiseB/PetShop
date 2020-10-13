@@ -180,6 +180,12 @@ public class Player implements Serializable {
         return true;
     }
 
+    public void sickAnimals(){
+        for(Animal animal:this.animals){
+
+        }
+    }
+
 
     private void print(String x) {
         // print a string if it is not empty

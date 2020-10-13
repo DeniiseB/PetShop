@@ -13,6 +13,7 @@ abstract class Animal implements Serializable {
     protected String gender;
     protected int price;
     protected int numberOfBabies;
+    protected boolean isSick = false;
 
     public Animal(String name, String gender){
         this.name = name;

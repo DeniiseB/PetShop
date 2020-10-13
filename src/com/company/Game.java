@@ -8,6 +8,7 @@ public class Game implements Serializable {
 
     Scanner scanner = new Scanner(System.in);
 
+    private String filePath = "";
     public static ArrayList<Player> players = new ArrayList<>();
     public Player currentPlayer;
     public int maxRounds;
@@ -35,47 +36,6 @@ public class Game implements Serializable {
 
     }
 
-
-    public void addPlayer() {
-        // Method that adds players to players arraylist, with exception handler
-
-        newPlayer = Dialogs.promptString("Enter name of player (0 to skip to Main Menu):");
-
-        if (newPlayer.equals("0")) {
-            // Making sure at least one player gets added
-            if (players.size() == 0) {
-                print("You must add at least one player!");
-                addPlayer();
-            }
-            return;
-        }
-        this.players.add(new Player(newPlayer));
-        // Makes sure that no more than 4 players are entered
-        if (players.size() > 3) {
-            return;
-        }
-        addPlayer();
-    }
-
-
-    public void mainMenu() {
-        Dialogs.clear();
-        int choice = Dialogs.promptInt("MAIN MENU\n---------\n(Pick 1-3, press ENTER)\n" +
-                "1. Game rules\n2. RESUME\n3. Exit game", 1, 3);
-        switch (choice) {
-            case 1:
-                print("You have picked " + maxRounds + " rounds.\nWhen rounds are up, all players pets are sold" +
-                        " for their health\nvalue times initial price and the player with most money wins.\nOnly one option" +
-                        " in the menu can be picked per round per player.\nWhen a player doesn't have enough money to buy anything with," +
-                        "\nor any animals left to sell, they're out\nDisclaimer: This game isn't based on real life situations.");
-                Dialogs.promptString("Press ENTER to go back.");
-                mainMenu();
-            case 2:
-                break;
-            case 3:
-                System.exit(0);
-        }
-    }
 
     public void gameMenu() {
         boolean loop = true;
@@ -125,8 +85,62 @@ public class Game implements Serializable {
             } while (shop.boughtSoldAnything == 0 && !roundPlayed);
         } while (loop);
         print(endStats());
-        // Add method with end stats
     }
+
+
+    public void mainMenu() {
+        Dialogs.clear();
+        int choice = Dialogs.promptInt("MAIN MENU\n---------\n(Pick 1-3, press ENTER)\n" +
+                "1. Game rules\n2. Resume Game\n3. Save Game \n4. Exit game", 1, 4);
+        switch (choice) {
+            case 1:
+                print("You have picked " + maxRounds + " rounds.\nWhen rounds are up, all players pets are sold" +
+                        " for their health\nvalue times initial price and the player with most money wins.\nOnly one option" +
+                        " in the menu can be picked per round per player.\nWhen a player doesn't have enough money to buy anything with," +
+                        "\nor any animals left to sell, they're out\nDisclaimer: This game isn't based on real life situations.");
+                Dialogs.promptString("Press ENTER to go back.");
+                mainMenu();
+            case 2:
+                break;
+            case 3:
+                filePath = Dialogs.promptString("Name your game:");
+                filePath += ".ser";
+                try {
+                    Dialogs.scanner = null;
+                    this.scanner = null;
+                    System.out.println("WHEN SAVING, NUMBER OF PLAYERS " + this.players.size());
+                    Serializer.serialize(filePath, this);
+                    Dialogs.scanner = new Scanner(System.in);
+                    this.scanner = new Scanner(System.in);
+                }
+                catch(Exception ignore){}
+                break;
+            case 4:
+                System.exit(0);
+        }
+    }
+
+
+    public void addPlayer() {
+        // Method that adds players to players arraylist, with exception handler
+        newPlayer = Dialogs.promptString("Enter name of player (0 to skip to Main Menu):");
+
+        if (newPlayer.equals("0")) {
+            // Making sure at least one player gets added
+            if (players.size() == 0) {
+                print("You must add at least one player!");
+                addPlayer();
+            }
+            return;
+        }
+        this.players.add(new Player(newPlayer));
+        // Makes sure that no more than 4 players are entered
+        if (players.size() > 3) {
+            return;
+        }
+        addPlayer();
+    }
+
 
     public void setPlayerAndRounds(Player player) {
 //         Code for first round only, to keep first player

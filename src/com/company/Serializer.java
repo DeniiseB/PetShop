@@ -25,6 +25,7 @@ public class Serializer implements Serializable{
             file.close();
             return data;
         } catch (Exception error) {
+            System.out.println(error);
             return false;
         }
     }
