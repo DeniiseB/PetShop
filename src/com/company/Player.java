@@ -77,22 +77,22 @@ public class Player implements Serializable {
         return this.livingFlies.getKilos() + this.sweetCorn.getKilos() + this.catChow.getKilos();
     }
 
-    public void feed() {
+    public boolean feed() {
 
         if (this.animals.size() == 0) {
             print("You don't have any pets to feed!");
-            return;
+            return false;
         }
         if (this.foodTotalKilos() == 0) {
             print("You have to buy some food first.");
-            return;
+            return false;
         }
 
         print(this.foodInfo());
 
         int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
         if (choice == 4) {
-            return;
+            return false;
         }
 
         Food foodType = switch (choice) {
@@ -103,7 +103,7 @@ public class Player implements Serializable {
 
         if (foodType.kilos == 0) {
             print("You have to buy some of that food first.");
-            return;
+            return false;
         }
 
         System.out.println(this.animalsInfo());
@@ -114,9 +114,9 @@ public class Player implements Serializable {
 
         if (kilos > foodType.kilos) {
             print("You don't have that much food.");
-            return;
+            return false;
         }
-        animal.eat(foodType, kilos);
+        return animal.eat(foodType, kilos);
 
     }
 

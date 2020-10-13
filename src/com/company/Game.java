@@ -63,7 +63,7 @@ public class Game implements Serializable {
                         shop.buyFood(currentPlayer);
                         break;
                     case 3:
-                        currentPlayer.feed();
+                        roundPlayed = currentPlayer.feed();
                         break;
                     case 4:
                         roundPlayed = currentPlayer.createNewAnimals();
@@ -72,6 +72,7 @@ public class Game implements Serializable {
                         shop.sellAnimals(currentPlayer);
                         break;
                     case 6:
+                        roundPlayed = shop.seeVet(currentPlayer);
                         break;
                     case 7:
                         mainMenu();
