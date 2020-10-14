@@ -34,7 +34,7 @@ public class Player implements Serializable {
         this.money = newMoney;
     }
 
-    //A method for the beginning of each round
+    //A method for the beginning of each round, reducing health and giving animal stats
     public String animalsInfoReduceHealth() {
         String sentence = "";
         ArrayList<Animal> toRemove = new ArrayList<>();
@@ -87,25 +87,21 @@ public class Player implements Serializable {
             print("You have to buy some food first.");
             return false;
         }
-
         print(this.foodInfo());
 
         int choice = Dialogs.promptInt("Which type of food(1-3)? (4.BACK)", 1, 4);
         if (choice == 4) {
             return false;
         }
-
         Food foodType = switch (choice) {
             case 1 -> this.livingFlies;
             case 2 -> this.sweetCorn;
             default -> this.catChow;
         };
-
         if (foodType.kilos == 0) {
             print("You have to buy some of that food first.");
             return false;
         }
-
         System.out.println(this.animalsInfo());
         choice = Dialogs.promptInt("--Pick pet(number) to feed--", 0, this.animals.size());
         Animal animal = this.animals.get(choice - 1);
@@ -117,7 +113,6 @@ public class Player implements Serializable {
             return false;
         }
         return animal.eat(foodType, kilos);
-
     }
 
 

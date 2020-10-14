@@ -131,6 +131,10 @@ public class Shop implements Serializable {
                 "(0. BACK *will skip to next player if already sold something*)", 0, player.animals.size());
         if(choice == 0){return;}
         Animal animal = player.animals.get(choice - 1);
+        if(animal.isSick){
+            print("You can't sell a sick animal.");
+            return;
+        }
 
         player.setMoney(player.getMoney() + animal.worth());
         print(animal.name + " just made you £" + animal.worth() + "! You now have £" + player.getMoney() + " in total.");
@@ -159,9 +163,16 @@ public class Shop implements Serializable {
         if(choice == 0){return false;}
         Animal animal = sickAnimals.get(choice - 1);
 
+        if (player.getMoney() < animal.worth()){
+            print("You don't have enough money to treat this animal.");
+            return false;
+        }
+        player.setMoney(player.getMoney() - animal.worth());
+
         double number = Math.random();
         animal.isSick = (number < 0.5);
-        print(animal.isSick ? "VET: I'm very sorry, " + animal.name + " died..." : animal.name + " is feeling better!..");
+        print(animal.isSick ? "VET: I'm very sorry, " + animal.name + " died..." : animal.name + " is feeling better!");
+        print("That came to a total of £" + animal.worth());
         try {
             Thread.sleep(3000);
         }
