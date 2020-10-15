@@ -121,17 +121,19 @@ public class Shop implements Serializable {
         return true;
     }
 
-    public void sellAnimals(Player player){
-        if(player.animals.size() == 0){
+    public void sellAnimals(Player player) {
+        if (player.animals.size() == 0) {
             print("You have no pets to sell.");
             return;
         }
         print(player.animalsInfo());
         int choice = Dialogs.promptInt("--Select pet(number) to sell--\n" +
                 "(0. BACK *will skip to next player if already sold something*)", 0, player.animals.size());
-        if(choice == 0){return;}
+        if (choice == 0) {
+            return;
+        }
         Animal animal = player.animals.get(choice - 1);
-        if(animal.isSick){
+        if (animal.isSick) {
             print("You can't sell a sick animal.");
             return;
         }
@@ -149,35 +151,44 @@ public class Shop implements Serializable {
         }
     }
 
-    public boolean seeVet(Player player){
+    public void seeVet(Player player) {
+        //Player can see the vet and then go back to menu and do something else in same round, or it's too difficult
         int counter = 0;
-        ArrayList <Animal> sickAnimals = new ArrayList<>();
-        for(Animal animal: player.animals){
-            if (animal.isSick){
+        ArrayList<Animal> sickAnimals = new ArrayList<>();
+        for (Animal animal : player.animals) {
+            if (animal.isSick) {
                 sickAnimals.add(animal);
-            print(++counter + ". " + animal.name + " " + animal.getClass().getSimpleName());
+                print(++counter + ". " + animal.name + " " + animal.getClass().getSimpleName());
             }
         }
         int choice = Dialogs.promptInt("--Select pet(number) to treat--\n" +
                 "(0. BACK *will skip to next player if a pet has already been treated*)", 0, counter);
-        if(choice == 0){return false;}
+        if (choice == 0) {
+            return;
+        }
         Animal animal = sickAnimals.get(choice - 1);
 
-        if (player.getMoney() < animal.worth()){
+        if (player.getMoney() < animal.worth()) {
             print("You don't have enough money to treat this animal.");
-            return false;
+            return;
         }
         player.setMoney(player.getMoney() - animal.worth());
 
         double number = Math.random();
         animal.isSick = (number < 0.5);
-        print(animal.isSick ? "VET: I'm very sorry, " + animal.name + " died..." : animal.name + " is feeling better!");
+
+        if (animal.isSick) {
+            print("VET: I'm very sorry, " + animal.name + " died...");
+            player.animals.remove(animal);
+        } else {
+            print(animal.name + " is feeling better!");
+        }
+
         print("That came to a total of £" + animal.worth());
         try {
             Thread.sleep(3000);
+        } catch (Exception ignore) {
         }
-        catch(Exception ignore){}
-        return true;
     }
 
 

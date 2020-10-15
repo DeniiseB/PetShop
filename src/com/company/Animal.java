@@ -11,9 +11,11 @@ abstract class Animal implements Serializable {
     protected String name;
     protected int health = 100;
     protected String gender;
+    protected int age = 0;
     protected int price;
     protected int numberOfBabies;
     protected boolean isSick = false;
+    protected int maxAge;
 
     public Animal(String name, String gender){
         this.name = name;
@@ -68,7 +70,8 @@ abstract class Animal implements Serializable {
        double h = this.health;
        // Rounds the double up or down to nearest int
        int toReturn = (int)Math.round((h/100) * this.price);
-       return toReturn;
+       // Won't return anything smaller than 0
+       return Math.max(toReturn - this.age, 0);
     }
 
 }

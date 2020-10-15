@@ -40,9 +40,10 @@ public class Player implements Serializable {
         ArrayList<Animal> toRemove = new ArrayList<>();
 
         for (Animal animal : this.animals) {
+            animal.age++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
-            if (animal.health <= 0 || animal.isSick) {
+            if (animal.health <= 0 || animal.age > animal.maxAge) {
                 sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";
                 toRemove.add(animal);

@@ -9,6 +9,7 @@ public class Ferret extends Animal implements Serializable {
         super(name, gender);
         price = 40;
         numberOfBabies = 2;
+        maxAge = 20;
     }
 
     public boolean eat(Food food, int kilos){

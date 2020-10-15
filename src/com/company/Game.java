@@ -72,7 +72,7 @@ public class Game implements Serializable {
                         shop.sellAnimals(currentPlayer);
                         break;
                     case 6:
-                        roundPlayed = shop.seeVet(currentPlayer);
+                        shop.seeVet(currentPlayer);
                         break;
                     case 7:
                         mainMenu();

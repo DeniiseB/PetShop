@@ -8,6 +8,7 @@ public class Badger extends Animal implements Serializable {
         super(name, gender);
         price = 60;
         numberOfBabies = 2;
+        maxAge = 25;
     }
 
     public boolean eat(Food food, int kilos){
