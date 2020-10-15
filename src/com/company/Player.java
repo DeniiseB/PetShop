@@ -113,6 +113,8 @@ public class Player implements Serializable {
             print("You don't have that much food.");
             return false;
         }
+        // Removes the kilos fed from players food kilos
+        foodType.kilos =- kilos;
         return animal.eat(foodType, kilos);
     }
 

@@ -71,7 +71,7 @@ abstract class Animal implements Serializable {
        // Rounds the double up or down to nearest int
        int toReturn = (int)Math.round((h/100) * this.price);
        // Won't return anything smaller than 0
-       return Math.max(toReturn - this.age, 0);
+       return Math.max(toReturn - this.age, 1);
     }
 
 }

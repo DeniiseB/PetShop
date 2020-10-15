@@ -9,7 +9,7 @@ public class Toad extends Animal implements Serializable {
         super(name, gender);
         price = 5;
         numberOfBabies = 4;
-        maxAge = 5;
+        maxAge = 4;
     }
 
     public boolean eat(Food food, int kilos){

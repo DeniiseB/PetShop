@@ -9,7 +9,7 @@ public class Pike extends Animal implements Serializable {
         super(name, gender);
         price = 10;
         numberOfBabies = 4;
-        maxAge = 10;
+        maxAge = 7;
     }
 
     public boolean eat(Food food, int kilos){

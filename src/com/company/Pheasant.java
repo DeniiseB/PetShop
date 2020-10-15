@@ -9,7 +9,7 @@ public class Pheasant extends Animal implements Serializable {
         super(name, gender);
         price = 20;
         numberOfBabies = 3;
-        maxAge = 15;
+        maxAge = 12;
     }
 
     public boolean eat(Food food, int kilos){

@@ -161,8 +161,7 @@ public class Shop implements Serializable {
                 print(++counter + ". " + animal.name + " " + animal.getClass().getSimpleName());
             }
         }
-        int choice = Dialogs.promptInt("--Select pet(number) to treat--\n" +
-                "(0. BACK *will skip to next player if a pet has already been treated*)", 0, counter);
+        int choice = Dialogs.promptInt("--Select pet(number) to treat--\n(0. BACK)", 0, counter);
         if (choice == 0) {
             return;
         }
