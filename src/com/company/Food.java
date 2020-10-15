@@ -20,5 +20,7 @@ abstract class Food implements Serializable {
         this.kilos += extraKilos;
     }
 
+    public void minusKilos(int minusKilos) {this.kilos -= minusKilos; }
+
 
 }

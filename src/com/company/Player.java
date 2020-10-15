@@ -45,6 +45,9 @@ public class Player implements Serializable {
             animal.age++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
+            if(animal.isSick){
+                animal.health -= 100;
+            }
             }
             if (animal.health <= 0 || animal.age > animal.maxAge) {
                 sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
@@ -53,7 +56,8 @@ public class Player implements Serializable {
                 continue;
             }
             sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
-                    + animal.getGender() + ", " + animal.health + "% Health";
+                    + animal.getGender() + ", " + animal.health + "% Health" + ", " + animal.age + "yrs old "
+             + "(" + (animal.maxAge-animal.age) + "yrs left)";
         }
         // to avoid ConcurrentModificationException
         this.animals.removeAll(toRemove);
@@ -117,7 +121,7 @@ public class Player implements Serializable {
             return false;
         }
         // Removes the kilos fed from players food kilos
-        foodType.kilos =- kilos;
+        foodType.minusKilos(kilos);
         return animal.eat(foodType, kilos);
     }
 

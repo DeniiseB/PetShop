@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Game implements Serializable {
 
-    private String filePath = "";
     public ArrayList<Player> players = new ArrayList<>();
     public Player currentPlayer;
     public int maxRounds;
@@ -28,7 +27,7 @@ public class Game implements Serializable {
 
     public void gameMenu() {
         boolean loop = true;
-        do {  // maybe change while do!!!
+        do {
             setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
                 break;
@@ -97,8 +96,9 @@ public class Game implements Serializable {
             case 2:
                 break;
             case 3:
-                filePath = Dialogs.promptString("Name your game:");
+                String filePath = Dialogs.promptString("Name your game:");
                 filePath += ".ser";
+                StartUp.setGameNames(filePath);
                 try {
                     Dialogs.scanner = null;
                     Serializer.serialize(filePath, this);
@@ -136,7 +136,6 @@ public class Game implements Serializable {
     public void setPlayerAndRounds(Player player) {
 //         Code for first round of a new or loaded game, to keep first player
         if (firstRound) {
-//            this.firstRound = false;
             return;
         }
 
