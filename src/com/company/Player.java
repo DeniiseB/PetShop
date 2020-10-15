@@ -34,15 +34,18 @@ public class Player implements Serializable {
         this.money = newMoney;
     }
 
-    //A method for the beginning of each round, reducing health and giving animal stats
-    public String animalsInfoReduceHealth() {
+    //A method for the beginning of each round, reducing health and presenting animal stats
+    public String animalsInfoReduceHealth(boolean checkFirstRound) {
         String sentence = "";
         ArrayList<Animal> toRemove = new ArrayList<>();
 
         for (Animal animal : this.animals) {
+            //If it's not the first round of a new game, or first round back to a saved game..
+            if(!checkFirstRound){
             animal.age++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
+            }
             if (animal.health <= 0 || animal.age > animal.maxAge) {
                 sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
                         + ", " + "100% DEAD";

@@ -6,14 +6,12 @@ import java.util.Scanner;
 
 public class Game implements Serializable {
 
-    Scanner scanner = new Scanner(System.in);
-
     private String filePath = "";
-    public static ArrayList<Player> players = new ArrayList<>();
+    public ArrayList<Player> players = new ArrayList<>();
     public Player currentPlayer;
     public int maxRounds;
-    int roundCounter = 0;
-    boolean firstRound = true;
+    int roundCounter = 1;
+    public boolean firstRound = true;
     public String newPlayer = "";
     Shop shop = new Shop();
     int playerIndex = 0;
@@ -30,7 +28,7 @@ public class Game implements Serializable {
 
     public void gameMenu() {
         boolean loop = true;
-        do {
+        do {  // maybe change while do!!!
             setPlayerAndRounds(currentPlayer);
             if (roundCounter > maxRounds) {
                 break;
@@ -44,11 +42,11 @@ public class Game implements Serializable {
                 catch(Exception ignore){}
                 continue;
             }
-
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
-            print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth());
-            currentPlayer.sickAnimals();
+            print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth(firstRound));
+            if(!firstRound)  {currentPlayer.sickAnimals();}
+            else{ firstRound = false;}
             shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;
             do {
@@ -103,11 +101,8 @@ public class Game implements Serializable {
                 filePath += ".ser";
                 try {
                     Dialogs.scanner = null;
-                    this.scanner = null;
-                    System.out.println("WHEN SAVING, NUMBER OF PLAYERS " + this.players.size());
                     Serializer.serialize(filePath, this);
                     Dialogs.scanner = new Scanner(System.in);
-                    this.scanner = new Scanner(System.in);
                 }
                 catch(Exception ignore){}
                 break;
@@ -139,13 +134,12 @@ public class Game implements Serializable {
 
 
     public void setPlayerAndRounds(Player player) {
-//         Code for first round only, to keep first player
+//         Code for first round of a new or loaded game, to keep first player
         if (firstRound) {
-            this.firstRound = false;
-            roundCounter++;
+//            this.firstRound = false;
             return;
         }
-        //MAKE SURE FIRST PLAYER STAYS AS FIRST PLAYER, (get.0???)
+
         if (players.size()==0){
             print("No winners here today! GAME OVER.");
             System.exit(0);

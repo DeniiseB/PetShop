@@ -18,9 +18,8 @@ public final class StartUp implements Serializable {
             var game = deserialized.equals(false) ? new Game() : (Game) deserialized;
             // get the old game running again
             if(!deserialized.equals(false)){
-                System.out.println("SAVED GAME PLAYERS COUNT " + game.players.size());
-                System.out.println("SAVED GAME CURRENT PLAYER " + game.currentPlayer);
-                System.out.println("SAVED GAME ROUND COUNT " + game.roundCounter);
+                System.out.println("WELCOME BACK!");
+                game.firstRound = true;
                 game.gameMenu();
             }
         }
