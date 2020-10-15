@@ -1,11 +1,18 @@
 package com.company;
 
+import java.io.File;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public final class StartUp implements Serializable {
 
-    private static ArrayList<String> gameNames = new ArrayList<>();
+    private static ArrayList<String> gameNames;
+    private static Path textFilePath = Paths.get("saved-games.txt");
     public static String filePath;
 
     private StartUp() {
@@ -25,10 +32,14 @@ public final class StartUp implements Serializable {
             }
         }
         gameNames.add(name);
+        try{
+        Files.write(textFilePath,gameNames,StandardCharsets.UTF_8);
+        }catch(Exception ignore){}
         System.out.println(name + " saved.");
     }
 
     static public void startUpMenu() {
+        readTextFilesToList();
         int choice = Dialogs.promptInt("1. New game\n2. Load game\n3. Exit", 1, 3);
         if (choice == 1) {
             new Game();
@@ -53,12 +64,21 @@ public final class StartUp implements Serializable {
         }
         int i = 0;
         for(String game: gameNames){
-            System.out.println(++i + game);
+            System.out.println(++i + ". " + game);
         }
         int choice = Dialogs.promptInt("Pick game (number)", 1, gameNames.size());
-        return gameNames.get(choice-1) + ".ser";
+        return gameNames.get(choice-1);
 
     }
 
+    static private void readTextFilesToList(){
+        try {
+            var content = Files.readString(textFilePath, StandardCharsets.UTF_8);
+            gameNames = new ArrayList<String>(Arrays.asList(content.replace("\r", "").split("\n")));
+            gameNames.remove("");
+        }catch (Exception e){
+            gameNames = new ArrayList<>();
+        }
+    }
 
 }
