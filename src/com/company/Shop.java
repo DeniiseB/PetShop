@@ -9,7 +9,7 @@ public class Shop implements Serializable {
 
 
     public void buyAnimal(Player player) {
-        int choice = 0;     // MOVE to fields?
+        int choice = 0;
         Dialogs.clear();
         choice = Dialogs.promptInt("\nThe Dodgy Pet Shop\n------------------\n(Select 1-6. Press ENTER)"
                 + "\n1. Toad, £5 \n2. Pike, £10 \n3. Pheasant, £20 \n4. Ferret, £40 \n5. Badger, £60" +
@@ -71,7 +71,7 @@ public class Shop implements Serializable {
 
 
     public void buyFood(Player player) {
-        int choice = 0; // MOVE to fields?
+        int choice = 0;
         Dialogs.clear();
         choice = Dialogs.promptInt("\nThe Dodgy Pet Shop\n------------------\n(Select 1-4. Press ENTER)\n" +
                 "1. Living Flies, £7/Kg \n2. Sweet Corn, £9/Kg \n3. Cat Chow, £12/Kg \n4. BACK" +

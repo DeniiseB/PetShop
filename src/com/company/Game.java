@@ -136,7 +136,7 @@ public class Game implements Serializable {
 
 
     public void addPlayer() {
-        // Method that adds players to players arraylist, with exception handler
+        // Method that adds players to players arraylist
         newPlayer = Dialogs.promptString("Enter name of player (0 to skip to Main Menu):");
 
         if (newPlayer.equals("0")) {
