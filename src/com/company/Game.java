@@ -29,6 +29,7 @@ public class Game implements Serializable {
         boolean loop = true;
         do {
             setPlayerAndRounds(currentPlayer);
+            //When rounds chosen by player are up, loop breaks and game ends
             if (roundCounter > maxRounds) {
                 break;
             }
@@ -45,12 +46,13 @@ public class Game implements Serializable {
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth(firstRound));
             if(!firstRound)  {currentPlayer.sickAnimals();}
+            //firstRound makes sure game stays where it left off when you save and exit game
             else{ firstRound = false;}
             shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;
             do {
                 int choice = Dialogs.promptInt("\n-----\n1. Buy Animals " + "\n2. Buy Food \n3. Feed Animal " +
-                        "\n4. Create Baby Animal \n5. Sell Animal \n6. See Veterinarian \n7. Main Menu\n-----", 1, 7);
+                        "\n4. Create Baby Animal \n5. Sell Animal \n6. See Veterinarian \n7. Main Menu(& Exit)\n-----", 1, 7);
 
                 switch (choice) {
                     case 1:

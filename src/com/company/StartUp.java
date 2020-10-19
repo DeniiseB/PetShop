@@ -40,7 +40,7 @@ public final class StartUp implements Serializable {
 
     static public void startUpMenu() {
         readTextFilesToList();
-        int choice = Dialogs.promptInt("1. New game\n2. Load game\n3. Exit", 1, 3);
+        int choice = Dialogs.promptInt("1. New Game\n2. Load Game\n3. Exit", 1, 3);
         if (choice == 1) {
             new Game();
         }
@@ -54,6 +54,9 @@ public final class StartUp implements Serializable {
                 game.firstRound = true;
                 game.gameMenu();
             }
+        }
+        if (choice == 3){
+            System.exit(0);
         }
     }
 
@@ -73,8 +76,8 @@ public final class StartUp implements Serializable {
 
     static private void readTextFilesToList(){
         try {
-            var content = Files.readString(textFilePath, StandardCharsets.UTF_8);
-            gameNames = new ArrayList<String>(Arrays.asList(content.replace("\r", "").split("\n")));
+            String content = Files.readString(textFilePath, StandardCharsets.UTF_8);
+            gameNames = new ArrayList<>(Arrays.asList(content.replace("\r", "").split("\n")));
             gameNames.remove("");
         }catch (Exception e){
             gameNames = new ArrayList<>();

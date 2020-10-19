@@ -135,7 +135,7 @@ public class Shop implements Serializable {
         Animal animal = player.animals.get(choice - 1);
         if (animal.isSick) {
             print("You can't sell a sick animal.");
-            sellAnimals(player);
+            return;
         }
 
         player.setMoney(player.getMoney() + animal.worth());
