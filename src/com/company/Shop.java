@@ -152,7 +152,7 @@ public class Shop implements Serializable {
     }
 
     public void seeVet(Player player) {
-        //Player can see the vet and then go back to menu and do something else in same round, or it's too difficult
+        //Player can see the vet and then go back to menu and do something else in same round
         int counter = 0;
         ArrayList<Animal> sickAnimals = new ArrayList<>();
         for (Animal animal : player.animals) {
@@ -168,7 +168,10 @@ public class Shop implements Serializable {
         Animal animal = sickAnimals.get(choice - 1);
 
         if (player.getMoney() < animal.worth()) {
-            print("You don't have enough money to treat this animal.");
+            choice = Dialogs.promptInt("You don't have enough money to treat this animal. Skip round? (1.Yes/2.No)",1,2);
+            if(choice == 1){
+                this.boughtSoldAnything++;
+            }
             return;
         }
         player.setMoney(player.getMoney() - animal.worth());

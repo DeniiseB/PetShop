@@ -9,7 +9,7 @@ public class Player implements Serializable {
 
     Random random = new Random();
     private final String name;
-    private int money = 130;
+    private int money = 140;
     public ArrayList<Animal> animals;
     public LivingFlies livingFlies = new LivingFlies();
     public SweetCorn sweetCorn = new SweetCorn();

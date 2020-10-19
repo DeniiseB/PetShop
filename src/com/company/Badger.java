@@ -6,7 +6,7 @@ public class Badger extends Animal implements Serializable {
 
     public Badger(String name, String gender) {
         super(name, gender);
-        price = 60;
+        price = 50;
         numberOfBabies = 2;
         maxAge = 25;
     }

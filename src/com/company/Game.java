@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class Game implements Serializable {
 
     public ArrayList<Player> players = new ArrayList<>();
+    public int initialPlayers = 0;
     public Player currentPlayer;
     public int maxRounds;
     int roundCounter = 1;
@@ -33,21 +34,19 @@ public class Game implements Serializable {
             if (roundCounter > maxRounds) {
                 break;
             }
-            if(currentPlayer.getMoney() <= 5 && currentPlayer.animals.size() == 0){
-                print(currentPlayer.getName() + ", you don't have enough money to buy anything with, or any animals left. You're OUT!..");
-                players.remove(currentPlayer);
-                try {
-                    Thread.sleep(3000);
-                }
-                catch(Exception ignore){}
-                continue;
-            }
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth(firstRound));
-            if(!firstRound)  {currentPlayer.sickAnimals();}
+            // If player doesn't have the means to continue, they're out
+            if (!checkPlayerStats(currentPlayer)) {
+                continue;
+            }
             //firstRound makes sure game stays where it left off when you save and exit game
-            else{ firstRound = false;}
+            if (!firstRound) {
+                currentPlayer.sickAnimals();
+            } else {
+                firstRound = false;
+            }
             shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;
             do {
@@ -77,7 +76,7 @@ public class Game implements Serializable {
                         mainMenu();
                         break;
                 }
-            } while (shop.boughtSoldAnything == 0 && !roundPlayed);
+            } while (shop.boughtSoldAnything == 0 && !roundPlayed && checkPlayerStats(currentPlayer));
         } while (loop);
         print(endStats());
     }
@@ -105,12 +104,34 @@ public class Game implements Serializable {
                     Dialogs.scanner = null;
                     Serializer.serialize(filePath, this);
                     Dialogs.scanner = new Scanner(System.in);
+                } catch (Exception ignore) {
                 }
-                catch(Exception ignore){}
                 break;
             case 4:
                 System.exit(0);
         }
+    }
+
+
+    public boolean checkPlayerStats(Player player) {
+        if (initialPlayers > 1 && players.size() <= 1) {
+            if (player.getMoney() < 5 && player.animals.size() == 0) {
+                print("\nYou all lost. GAME OVER.");
+            } else {
+                print(endStats());
+            }
+            System.exit(0);
+        }
+        if (player.getMoney() < 5 && player.animals.size() == 0) {
+            print("\n" + player.getName() + ", you don't have enough money to buy anything with, or any animals left. You're OUT!..");
+            players.remove(player);
+            try {
+                Thread.sleep(3500);
+            } catch (Exception ignore) {
+            }
+            return false;
+        }
+        return true;
     }
 
 
@@ -127,6 +148,7 @@ public class Game implements Serializable {
             return;
         }
         this.players.add(new Player(newPlayer));
+        initialPlayers++;
         // Makes sure that no more than 4 players are entered
         if (players.size() > 3) {
             return;
@@ -141,7 +163,7 @@ public class Game implements Serializable {
             return;
         }
 
-        if (players.size()==0){
+        if (players.size() == 0) {
             print("No winners here today! GAME OVER.");
             System.exit(0);
         }
@@ -162,11 +184,12 @@ public class Game implements Serializable {
     public String endStats() {
         String sentence = "";
         ArrayList<Player> losers = new ArrayList<>();
+
         for (Player player : players) {
             for (Animal animal : player.animals) {
                 player.setMoney(player.getMoney() + animal.worth());
             }
-            sentence += player.getName() + " has £" + player.getMoney() + "\n";
+            sentence += "\n" + player.getName() + " has £" + player.getMoney() + "\n";
         }
 
         for (Player player : players) {
