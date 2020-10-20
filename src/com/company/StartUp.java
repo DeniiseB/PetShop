@@ -21,9 +21,8 @@ public final class StartUp implements Serializable {
     static public void setGameNames(String name) {
         if (gameNames.contains(name)){
             int choice = Dialogs.promptInt(" already exists. Would you like to replace it? (1. Yes 2. No)", 1, 2);
-            if(choice == 1){
-                System.out.println(name + " saved.");
-                return;
+            if (choice == 1){
+                gameNames.remove(name);
             }
             if (choice == 2) {
                 String name2 = Dialogs.promptString("Type in a new name:");

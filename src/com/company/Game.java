@@ -34,18 +34,16 @@ public class Game implements Serializable {
             if (roundCounter > maxRounds) {
                 break;
             }
+            if(!firstRound){
+                currentPlayer.sickAnimals();
+            }
+            else {firstRound = false;}
             print("\n".repeat(50) + "\nROUND " + roundCounter + "  " + currentPlayer.getName().toUpperCase()
                     + "  Money: £" + currentPlayer.getMoney() + "\n-----\nFood:  " + currentPlayer.foodInfo() + "\n-----");
             print("Pets:\n-----" + currentPlayer.animalsInfoReduceHealth(firstRound));
             // If player doesn't have the means to continue, they're out
             if (!checkPlayerStats(currentPlayer)) {
                 continue;
-            }
-            //firstRound makes sure game stays where it left off when you save and exit game
-            if (!firstRound) {
-                currentPlayer.sickAnimals();
-            } else {
-                firstRound = false;
             }
             shop.boughtSoldAnything = 0;
             boolean roundPlayed = false;

@@ -45,9 +45,6 @@ public class Player implements Serializable {
             animal.age++;
             int i = ThreadLocalRandom.current().nextInt(10, 30 + 1);
             animal.health = animal.health - i;
-            if(animal.isSick){
-                animal.health -= 100;
-            }
             }
             if (animal.health <= 0 || animal.age > animal.maxAge) {
                 sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", " + animal.getGender()
@@ -55,14 +52,19 @@ public class Player implements Serializable {
                 toRemove.add(animal);
                 continue;
             }
-            sentence += "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
+
+            sentence +=  "\n" + animal.getClass().getSimpleName() + ", " + animal.name + ", "
                     + animal.getGender() + ", " + animal.health + "% Health" + ", " + animal.age + "yrs old "
              + "(" + (animal.maxAge-animal.age) + "yrs left)";
+
+            sentence += animal.isSick ? "\n!!" + animal.name + " is SICK! Take them to the vet or they'll die!!" : "";
+
         }
         // to avoid ConcurrentModificationException
         this.animals.removeAll(toRemove);
         return sentence;
     }
+
 
     public String animalsInfo() {
         String sentence = "";
@@ -194,12 +196,18 @@ public class Player implements Serializable {
     }
 
     public void sickAnimals(){
+        //Method to remove untreated sick animals and determine new sick animals
+        ArrayList<Animal> toRemove = new ArrayList<>();
         for(Animal animal:this.animals){
+            if(animal.isSick) {
+                toRemove.add(animal);
+                continue;
+            }
             double number = Math.random();
             // If random number is 0.2 or less, animal gets sick (20% chance)
             animal.isSick = number <= 0.2;
-            print(animal.isSick ? "\n" + animal.name + " is sick! Take them to the vet or they'll die!" : "");
         }
+        this.animals.removeAll(toRemove);
     }
 
 
