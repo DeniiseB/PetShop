@@ -163,7 +163,7 @@ public class Player implements Serializable {
             return false;
         }
         choice = Dialogs.promptInt("--Pick a partner for " + animal1.name + "--" +
-                "\n(0. BACK)", 0, this.animals.size());
+                "\n(0. BACK)", 0, options.size());
         if(choice == 0){return false;}
         Animal animal2 = options.get(choice - 1);
         if(animal2.isSick){
